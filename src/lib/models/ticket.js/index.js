@@ -1,13 +1,13 @@
 import executeQuery from "../../database";
-import {findUser} from "../auth";
+import { findUser } from "../auth";
 
 const md5 = require("md5");
 
 const nodemailer = require("nodemailer");
 
-export async function createTicket({data}) {
+export async function createTicket({ data }) {
     const random = (Math.random() + 1).toString(36).substring(7);
-    const {type_message, employe_respond, description, user, reponse} = data;
+    const { type_message, employe_respond, description, user, reponse } = data;
 
     // const dateOption = { year: "numeric", month: "short", day: "numeric" };
     const dateNow = new Date();
@@ -18,7 +18,7 @@ export async function createTicket({data}) {
     //   ":" +
     //   dateNow.getMinutes();
 
-    const userAnonymous = await findUser({email: user});
+    const userAnonymous = await findUser({ email: user });
     const nameAnonymous = userAnonymous ? userAnonymous[0]?.nom : "";
     const lastAnonymous = userAnonymous ? userAnonymous[0]?.prenom : "";
     const hashIDAnonymous = userAnonymous ? userAnonymous[0]?.hashId : "";
@@ -28,8 +28,8 @@ export async function createTicket({data}) {
         port: 465,
         secure: true,
         auth: {
-            user: process.env.ZOHO_MAIL_RECEIVED_MESSAGE,
-            pass: "tphlpcxnskuimcdk",
+            user: process.env.ZOHO_USER,
+            pass: process.env.ZOHO_PASSWORD
         },
     });
 
@@ -82,7 +82,7 @@ export async function allTickets() {
     }
 }
 
-export async function findMyTicket({email}) {
+export async function findMyTicket({ email }) {
     try {
         const request = await executeQuery({
             query: `SELECT * FROM tickets WHERE user= "${email}"`,
@@ -93,7 +93,7 @@ export async function findMyTicket({email}) {
     }
 }
 
-export async function deleteMyTicket({hashId, email}) {
+export async function deleteMyTicket({ hashId, email }) {
     try {
         const request = await executeQuery({
             query: `DELETE FROM tickets WHERE user= "${email}" and hashId= "${hashId}"`,
@@ -104,7 +104,7 @@ export async function deleteMyTicket({hashId, email}) {
     }
 }
 
-export async function updateTicket({reponse, hashId, user}) {
+export async function updateTicket({ reponse, hashId, user }) {
     try {
         const request = await executeQuery({
             query: "UPDATE tickets SET reponse = ?, status = ?  WHERE hashId = ?",

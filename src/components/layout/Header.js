@@ -86,7 +86,7 @@ function Header() {
                 }).fire({
                     icon: "success",
                     title: "Vous êtes déconnécté avec succès!",
-                });;
+                });
                 dispatch(logoutUser()).then(() => {
                     router.push("/");
                 });

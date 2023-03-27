@@ -19,10 +19,12 @@ function Blank() {
         description: "",
         user: emailUser,
     });
+    const [loadingCreateTicket, setLoadingCreateTicket] = useState(false);
 
     function createTicket(e) {
         // console.log("tickets: ", tickets);
         e.preventDefault();
+        setLoadingCreateTicket(true);
         axios
             .post(`/api/ticket/createTicket`, tickets)
             .then((res) => {
@@ -72,7 +74,10 @@ function Blank() {
                     icon: "error",
                     title: "Ooupppss Erreur"
                 })
-            });
+            })
+            .finally((err) => {
+                setLoadingCreateTicket(false);
+            })
     }
 
     return (
@@ -210,7 +215,12 @@ function Blank() {
                                                 ></textarea>
                                             </div>
                                             <div className="text-center">
-                                                <button className="btn btn-primary">Envoyer</button>
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                >
+                                                    {loadingCreateTicket ? "En cours de traitement ..." : "Envoyer"}
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

@@ -1,12 +1,12 @@
 import React from "react";
-import {Fragment, useRef, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 // import config from "../../utils/config";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import SentConfirmation from "./confirmEmail";
 
-function ResetPassword({setShowResetPass, showResetPass}) {
+function ResetPassword({ setShowResetPass, showResetPass }) {
     const cancelButtonRef = useRef(null);
     const [email, setEmail] = useState("");
     const [showMessage, setShowMessage] = useState(false);
@@ -16,12 +16,14 @@ function ResetPassword({setShowResetPass, showResetPass}) {
     const [error, setError] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [loadingResetPassword, setLoadingResetPassword] = useState(false);
 
     function resetPass(e) {
         e.preventDefault();
         setError(false);
+        setLoadingResetPassword(true);
         axios
-            .post(`/api/resetpassword`, {email})
+            .post(`/api/resetpassword`, { email })
             .then((res) => {
                 if (res.data.success) {
                     setEmail('');
@@ -43,7 +45,10 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                 setError(true);
                 setTitle('Erreur');
                 setContent(err.response?.data?.message ?? 'Message non envoyé.');
-            });
+            })
+            .finally(() => {
+                setLoadingResetPassword(false);
+            })
     }
 
     const endAlert = (closed) => {
@@ -73,7 +78,7 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -94,7 +99,7 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                                         <div className="flex flex-col px-5 py-12 w-full">
                                             <div>
                                                 <div className="text-2xl  font-bold sm:text-center">
-                                                    Reset Password
+                                                    Réinitialiser le mot de passe
                                                 </div>
                                                 <div className="text-center">
                                                     Il semble que vous avez oublié votre mot de passe, si
@@ -114,16 +119,16 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                                                     className="absolute top-0 bottom-0 right-0 px-4 py-3"
                                                     onClick={() => setShowMessage(false)}
                                                 >
-                                                      <svg
-                                                          className="fill-current h-6 w-6 text-green-500"
-                                                          role="button"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                          viewBox="0 0 20 20"
-                                                      >
+                                                    <svg
+                                                        className="fill-current h-6 w-6 text-green-500"
+                                                        role="button"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                    >
                                                         <title>Close</title>
                                                         <path
-                                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
-                                                      </svg>
+                                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                                    </svg>
                                                 </span>
                                             </div>
                                             <div
@@ -134,22 +139,22 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                                                 }}
                                             >
                                                 <span className="block sm:inline">
-                                                  Error to reset password
+                                                    Erreur pour la réinitialisation
                                                 </span>
                                                 <span
                                                     className="absolute top-0 bottom-0 right-0 px-4 py-3"
                                                     onClick={() => setShowMessageError(false)}
                                                 >
-                                                      <svg
-                                                          className="fill-current h-6 w-6 text-red-500"
-                                                          role="button"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                          viewBox="0 0 20 20"
-                                                      >
+                                                    <svg
+                                                        className="fill-current h-6 w-6 text-red-500"
+                                                        role="button"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                    >
                                                         <title>Close</title>
                                                         <path
-                                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
-                                                      </svg>
+                                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                                    </svg>
                                                 </span>
                                             </div>
                                             <form
@@ -171,7 +176,7 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                                                                             <span className="text-base font-medium leading-4 text-gray-700">
                                                                                 Email
                                                                                 <sup className="font-medium text-danger-700">
-                                                                                  *
+                                                                                    *
                                                                                 </sup>
                                                                             </span>
                                                                         </label>
@@ -222,11 +227,16 @@ function ResetPassword({setShowResetPass, showResetPass}) {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <input
+                                                            <button
                                                                 type="submit"
-                                                                value="VALIDATE"
-                                                                className="inline-flex p-0 items-center cursor-pointer text-base justify-center gap-1 font-medium rounded-lg border transition-colors focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset filament-button h-9 px-4 text-sm text-white focus:ring-white border-transparent bg-indigo-600 hover:bg-indigo-500 focus:bg-indigo-700 focus:ring-offset-indigo-700 w-full"
-                                                            />
+                                                                className={`inline-flex p-0 items-center cursor-pointer text-base justify-center gap-1 font-medium rounded-lg border transition-colors focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset filament-button h-9 px-4 text-sm text-white focus:ring-white border-transparent ${loadingResetPassword
+                                                                    ? "bg-gray-400 cursor-not-allowed"
+                                                                    : "bg-indigo-600 hover:bg-indigo-500 focus:bg-indigo-700 focus:ring-offset-indigo-700"
+                                                                    } w-full`}
+                                                                disabled={loadingResetPassword}
+                                                            >
+                                                                {loadingResetPassword ? "Loading..." : "Valider"}
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

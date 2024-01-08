@@ -40,7 +40,5 @@ jspm_packages
 .idea
 .vscode
 
-.env
-
 # Next build dir
 .next/

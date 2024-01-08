@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
 // import ReCAPTCHA from 'react-google-recaptcha';
 import SentConfirmation from './confirmEmail';
+import Swal from 'sweetalert2';
 
 function Register({ showRegister, setShowRegister, setShowLogin }) {
   const cancelButtonRef = useRef(null);
@@ -36,9 +37,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
 
     setCaptchaCalculation(captchaCalculation);
   };
-
-  function setUnexpectedError() {
-  }
 
   async function signup(e) {
     e.preventDefault();
@@ -125,18 +123,28 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
                 );
               } else {
                 const data = await response.json();
-                setError(true);
-                setNotActive(true);
-                setTitle('Erreur');
-                setContent(data.message ?? 'Erreur inattendue.');
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: data.message ?
+                    'Cette adresse e-mail existe déjà. Veuillez en choisir une autre'
+                    : 'Erreur inattendue',
+                });
+                // setError(true);
+                // setNotActive(true);
+                // setTitle('Erreur');
+                // setContent(data.message ?? 'Erreur inattendue.');
               }
             })
             .catch((err) => {
               console.error(err);
               setError(true);
               setNotActive(true);
-              setTitle('Erreur');
-              setContent('Erreur inattendue, Veuillez réessayer plus tard.');
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Erreur inattendue, Veuillez réessayer plus tard',
+              });
             })
             .finally(() => {
               setFormLoading(false);
@@ -145,15 +153,21 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
       } else {
         setError(true);
         setNotActive(true);
-        setTitle('Erreur');
-        setContent('Erreur inattendue, Veuillez réessayer plus tard.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Erreur inattendue, Veuillez réessayer plus tard',
+        });
         setFormLoading(false);
       }
     } else {
       setNotActive(true);
       setError(true);
-      setTitle('Erreur');
-      setContent('Erreur de code captcha, veuillez réessayer.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Erreur de code captcha, veuillez réessayer.'
+      });
       setCaptcha('');
       resetCaptcha();
     }

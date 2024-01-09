@@ -63,7 +63,6 @@ export async function login({email, mdp}) {
 
 export async function findUser({email}) {
     try {
-        console.log('FIND USER');
         return await executeQuery({
             query: 'SELECT * FROM users WHERE email = ?',
             values: [email],

@@ -36,7 +36,6 @@ export default async function handler(req, res) {
     res.end();
     return;
   }
-  console.log('MBOLA TONGA ETO PEU INSET');
   //ws.open(apiKey, apiPackage, useSSL);
 
   // await ws.lookup(ip, async (err, data) => {

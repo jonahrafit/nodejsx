@@ -12,7 +12,6 @@ export default async function handler(req, res) {
                 if (!results[name]) {
                     results[name] = [];
                 }
-                console.log('net: ', net, name);
                 results[name].push(net.address);
             }
         }

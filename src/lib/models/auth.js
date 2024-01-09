@@ -23,7 +23,6 @@ export async function inscription({email, nom, prenom, mdp}) {
     };
 
     const checkUser = await findUser({email});
-    // console.log(checkUser);
     if (checkUser?.length > 0) {
         return {
             message: 'email existe déjà',
@@ -84,15 +83,12 @@ export async function findAll() {
 }
 
 export async function setConfirm({hashId}) {
-    console.log('TRY CATCH SETCONFIRM io 1')
     try {
-        console.log('TRY CATCH SETCONFIRM io 2')
         return await executeQuery({
             query: 'UPDATE users SET actif = 1 WHERE hashId = ?',
             values: [hashId],
         });
     } catch (error) {
-        console.log(error);
         return Promise.reject(() => null);
     }
 }

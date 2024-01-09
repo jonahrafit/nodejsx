@@ -167,8 +167,6 @@ function Layout({ children, pageTitle, subTitle }) {
     ) {
       setIsUrl(true);
     } else {
-      console.log("messages[messages.length - 1]");
-      console.log(messages[messages.length - 1]);
       if (
         messages.length > 0 &&
         messages[messages.length - 1].hashId === auth.user.hashId

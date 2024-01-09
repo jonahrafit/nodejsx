@@ -99,7 +99,6 @@ export async function validate(etat, id) {
             query: `SELECT * FROM histo_offers WHERE id =${id}`,
         });
         const {idUser, remuneration} = await offre[0];
-        console.log({idUser, remuneration});
         await executeQuery({
             query: `UPDATE users SET euros = (euros + ${remuneration}) WHERE hashId = "${idUser}" `,
         });

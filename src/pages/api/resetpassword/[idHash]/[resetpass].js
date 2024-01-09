@@ -5,7 +5,6 @@ export default async function handler(req, res) {
     const {idHash, resetpass} = req.query;
 
     const result = await updateMdp({newmdp: resetpass, idHash});
-    console.log(req);
     if (result) {
         res.redirect(307, "/").end();
     }

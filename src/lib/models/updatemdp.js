@@ -3,7 +3,6 @@ import executeQuery from "../database";
 const bcrypt = require("bcrypt");
 
 export async function updateMdp({newmdp, idHash}) {
-    console.log(newmdp, "---", idHash);
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(newmdp, salt);
     try {
@@ -13,7 +12,6 @@ export async function updateMdp({newmdp, idHash}) {
         });
         return true;
     } catch (error) {
-        console.log(error);
         return false;
     }
 }

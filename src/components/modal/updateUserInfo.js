@@ -28,7 +28,6 @@ function UpdateUserInfo({
         level: "",
     });
     useEffect(() => {
-        console.log("dataUser ==> ", dataUser);
         setUsers({
             nom: dataUser.nom || "",
             prenom: dataUser.prenom || "",

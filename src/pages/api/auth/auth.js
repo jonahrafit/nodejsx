@@ -24,7 +24,6 @@ export default async function handler(req, res) {
             }
         }
     }
-    console.log(results['Wi-Fi'][0]);
     try {
         const user = await findUser({email});
         if (user.length === 0) {

@@ -22,8 +22,6 @@ function ChooseMission({mission, auth, show, setShow}) {
         window.open(mission.url, '_blank');
     }
 
-    console.log(mission);
-
     async function sendMission() {
         let idx = 0;
         const link = mission.url.split(',');

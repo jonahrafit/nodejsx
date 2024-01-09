@@ -69,7 +69,6 @@ export default function UbdateMission() {
             myPays.splice(i, 1);
         } else {
             myPays.push(val);
-            console.log(myPays);
         }
         let value;
         if (myPays.toString().charAt(0) == ",") {

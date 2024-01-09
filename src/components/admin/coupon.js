@@ -13,7 +13,6 @@ function Coupon({coupon}) {
     const [deleted, setDeleted] = useState(false);
 
     function showCoupon() {
-        console.log(coupon);
         setShow(true);
         setCurrent(coupon);
     }

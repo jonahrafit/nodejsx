@@ -19,8 +19,6 @@ export default function Captcha({ captchaState }) {
 
     // Set captchaCalculation in state
     setCaptchaCalculation(captchaCalculation);
-    // console.log("captchaCalculation ==>", captchaCalculation)
-    // [1, "+", 2]
     const captchaResponse = captchaCalculation.reduce((acc, curr) => {
       // 1 + 2 = 3  // 1 - 2 = -1
       if (typeof curr === "number") {
@@ -29,8 +27,6 @@ export default function Captcha({ captchaState }) {
         return acc;
       }
     }, 0);
-
-    console.log("captchaResponse==> ", captchaResponse);
 
     //setCaptcha(captcha);
   }, []);

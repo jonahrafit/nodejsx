@@ -41,7 +41,6 @@ function ChartData({ name, dataMission }) {
         color = "#F6B81D";
     }
     var btDate = new Array(32).fill(0);
-    console.log('OUPS ', oups);
     oups?.forEach((e) => {
         if (diffBetweenDay(e.date) <= 31) {
             var lengthDate = 31;

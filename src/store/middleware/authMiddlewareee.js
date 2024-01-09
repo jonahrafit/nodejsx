@@ -4,8 +4,6 @@ import {NextResponse} from 'next/server';
 export function authMiddleware(req) {
     const userToken = req.cookies.get("userToken");
     const userLevel = req.cookies.get("userLevel");
-    console.log("middleware cookies ==========", JSON.stringify(userToken?.value));
-    console.log("utiliséeyyyyy")
     if (userToken != null && userToken !== "" && userToken.value !== "") {
         return NextResponse.next();
     }

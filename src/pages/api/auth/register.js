@@ -9,13 +9,10 @@ const bcrypt = require("bcrypt");
 
 // api: http://localhost:3000/api/auth/register
 export default async function handler(req, res) {
-  console.log("Request body", req.body);
-  console.log(res);
   const { email, nom, prenom, mdp, parrain, ip, pays } = req.body;
   //const resp = await axios.get("https://api.ipify.org?format=json");
   // let ws = new IP2ProxyWebService();
   const checkUser = await findUser({ email });
-  console.log(checkUser);
   if (checkUser?.length > 0) {
     res.status(400).json({
       message: "email existe déjà",
@@ -105,8 +102,6 @@ export default async function handler(req, res) {
     //   });
     // }
   } catch (error) {
-    console.log("error");
-    console.log(error);
     res.status(400).json({
       result: error.response?.message ?? "Erreur inattendue.",
     });

@@ -92,7 +92,6 @@ export default function NouveauMission() {
             axios
                 .post(`/api/missions`, {...newOffer, image: response.data.path})
                 .then((res) => {
-                    console.log(res);
                     if (res.status == 200) {
                         setShowMessage({
                             err: false,

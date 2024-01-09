@@ -23,10 +23,8 @@ export async function sendMailCustom(data) {
         .sendMail(mailOptions)
         .then(function (info, error) {
             if (error) {
-                console.log(error);
                 return {err: error, message: "Email not send", success: false};
             } else {
-                console.log("Email sent: " + info.response);
                 return {message: "Email send", success: true, info};
             }
         });

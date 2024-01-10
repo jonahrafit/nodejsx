@@ -16,6 +16,7 @@ export async function sendMail(data) {
 
     let _mailFrom = process.env.ZOHO_USER ?? 'contact@maxcadeaux.fr';
     let _mailFromName = process.env.CURLOPT_MAIL_FROM ?? 'Maxcadeaux';
+    console.log('DATA ', data);
     const mailData = {
         from: _mailFrom,
         to: email,

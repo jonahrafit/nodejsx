@@ -15,7 +15,7 @@ export default async function handler(req, res) {
             mdp: randomstring,
             subject: "Reset password",
             hashId: user[0]?.hashId,
-            url: "https://maxiconcour.com/api",
+            url: `${process.env.APP_URL}/api/`,
         });
 
         if (retourEmail) {

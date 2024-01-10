@@ -85,9 +85,7 @@ export async function findAll() {
 }
 
 export async function setConfirm({hashId}) {
-    console.log('TRY CATCH SETCONFIRM io 1')
     try {
-        console.log('TRY CATCH SETCONFIRM io 2')
         return await executeQuery({
             query: 'UPDATE users SET actif = 1 WHERE hashId = ?',
             values: [hashId],

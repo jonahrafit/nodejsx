@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import config from "../utils/config";
 import { useRouter } from "next/dist/client/router";
-
+import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 function Blank() {
@@ -27,7 +27,23 @@ function Blank() {
             .post(`/api/ticket/createTicket`, tickets)
             .then((res) => {
                 if (res.data.success) {
-                    toast.success("Message envoyé avec succès")
+                    Swal.mixin({
+                        toast: true,
+                        position: "bottom-right",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener(
+                                "mouseleave",
+                                Swal.resumeTimer
+                            );
+                        }
+                    }).fire({
+                        icon: "success",
+                        title: "Message envoyé avec succès"
+                    })
                     setTickets({
                         type_message: "Earing",
                         employe_respond: "Administrator",
@@ -39,7 +55,23 @@ function Blank() {
             })
             .catch((err) => {
                 // setShowMessageError(true);
-                toast.error("oupsss error");
+                Swal.mixin({
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener(
+                            "mouseleave",
+                            Swal.resumeTimer
+                        );
+                    }
+                }).fire({
+                    icon: "error",
+                    title: "Ooupppss Erreur"
+                })
             });
     }
 

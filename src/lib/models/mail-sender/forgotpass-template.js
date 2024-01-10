@@ -344,7 +344,7 @@ const forgotPassTemplate = (data) => {
                                         bgcolor="#3498db"
                                       >
                                         <a
-                                          href="${url}/resetpassword/${hashId}/${mdp}"
+                                          href="${url}resetpassword/${hashId}/${mdp}"
                                           target="_blank"
                                           style="
                                             border: solid 1px #3498db;

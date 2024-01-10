@@ -1,6 +1,8 @@
 
 const confirmationAccountTemplate = (data) => {
   const { email, nom, prenom, url, hashId } = data;
+  console.log('URL ', url);
+  console.log('LIEN', `"${url}/confirmation/${hashId}`)
   return `
   <!DOCTYPE html>
 <html>
@@ -343,27 +345,27 @@ const confirmationAccountTemplate = (data) => {
                                         align="center"
                                         bgcolor="#3498db"
                                       >
-                                        <a
-                                          href="${url}confirmation/${hashId}"
-                                          target="_blank"
-                                          style="
-                                            border: solid 1px #3498db;
-                                            border-radius: 5px;
-                                            box-sizing: border-box;
-                                            cursor: pointer;
-                                            display: inline-block;
-                                            font-size: 14px;
-                                            font-weight: bold;
-                                            margin: 0;
-                                            padding: 12px 25px;
-                                            text-decoration: none;
-                                            text-transform: capitalize;
-                                            background-color: #3498db;
-                                            border-color: #3498db;
-                                            color: #ffffff;
-                                          "
-                                          >Confirmer</a
-                                        >
+                                      <a
+                                      href="${url}confirmation/${hashId}"
+                                      target="_blank"
+                                      style="
+                                        border: solid 1px #3498db;
+                                        border-radius: 5px;
+                                        box-sizing: border-box;
+                                        cursor: pointer;
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        font-weight: bold;
+                                        margin: 0;
+                                        padding: 12px 25px;
+                                        text-decoration: none;
+                                        text-transform: capitalize;
+                                        background-color: #3498db;
+                                        border-color: #3498db;
+                                        color: #ffffff;
+                                      "
+                                      >Confirmer</a
+                                    >
                                       </td>
                                     </tr>
                                   </tbody>

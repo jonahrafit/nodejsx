@@ -12,24 +12,24 @@ function Blank() {
                             <div className="col-xl-12">
                                 <div className="card create_ticket">
                                     <div className="card-header">
-                                        <h4 className="card-title">Your Ticket</h4>
-                                        <a href="#" className="btn btn-primary">Create Ticket</a>
+                                        <h4 className="card-title">Vos Ticket</h4>
+                                        <a href="#" className="btn btn-primary">Créer nouveau Ticket</a>
                                     </div>
                                     <div className="card-body px-0">
                                         <div id="faq_accordion">
                                             <div className="card">
                                                 <div className="card-header" id="headingOne">
                                                     <div className="accordion_header collapsed"
-                                                         data-bs-toggle="collapse"
-                                                         data-bs-target="#collapseOne" aria-expanded="true"
-                                                         aria-controls="collapseOne">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                                        aria-controls="collapseOne">
                                                         Withdraws
                                                     </div>
                                                 </div>
 
                                                 <div id="collapseOne" className="collapse show"
-                                                     aria-labelledby="headingOne"
-                                                     data-parent="#faq_accordion">
+                                                    aria-labelledby="headingOne"
+                                                    data-parent="#faq_accordion">
                                                     <div className="card-body">
                                                         <p>Anim pariatur cliche reprehenderit, enim eiusmod high life
                                                             accusamus
@@ -61,14 +61,14 @@ function Blank() {
                                             <div className="card">
                                                 <div className="card-header" id="headingTwo">
                                                     <div className=" accordion_header collapsed"
-                                                         data-bs-toggle="collapse"
-                                                         data-bs-target="#collapseTwo" aria-expanded="false"
-                                                         aria-controls="collapseTwo">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseTwo" aria-expanded="false"
+                                                        aria-controls="collapseTwo">
                                                         Crash
                                                     </div>
                                                 </div>
                                                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo"
-                                                     data-parent="#faq_accordion">
+                                                    data-parent="#faq_accordion">
                                                     <div className="card-body">
                                                         <p>Anim pariatur cliche reprehenderit, enim eiusmod high life
                                                             accusamus
@@ -100,15 +100,15 @@ function Blank() {
                                             <div className="card">
                                                 <div className="card-header" id="headingThree">
                                                     <div className=" accordion_header collapsed"
-                                                         data-bs-toggle="collapse"
-                                                         data-bs-target="#collapseThree" aria-expanded="false"
-                                                         aria-controls="collapseThree">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                                        aria-controls="collapseThree">
                                                         Bets
                                                     </div>
                                                 </div>
                                                 <div id="collapseThree" className="collapse"
-                                                     aria-labelledby="headingThree"
-                                                     data-parent="#faq_accordion">
+                                                    aria-labelledby="headingThree"
+                                                    data-parent="#faq_accordion">
                                                     <div className="card-body">
                                                         <p>Anim pariatur cliche reprehenderit, enim eiusmod high life
                                                             accusamus
@@ -140,15 +140,15 @@ function Blank() {
                                             <div className="card">
                                                 <div className="card-header" id="headingFour">
                                                     <div className=" accordion_header collapsed"
-                                                         data-bs-toggle="collapse"
-                                                         data-bs-target="#collapseFour" aria-expanded="false"
-                                                         aria-controls="collapseFour">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                                        aria-controls="collapseFour">
                                                         Payment Giftcards
                                                     </div>
                                                 </div>
                                                 <div id="collapseFour" className="collapse"
-                                                     aria-labelledby="headingFour"
-                                                     data-parent="#faq_accordion">
+                                                    aria-labelledby="headingFour"
+                                                    data-parent="#faq_accordion">
                                                     <div className="card-body">
                                                         <p>Anim pariatur cliche reprehenderit, enim eiusmod high life
                                                             accusamus
@@ -180,15 +180,15 @@ function Blank() {
                                             <div className="card">
                                                 <div className="card-header" id="headingFive">
                                                     <div className=" accordion_header collapsed"
-                                                         data-bs-toggle="collapse"
-                                                         data-bs-target="#collapseFive" aria-expanded="false"
-                                                         aria-controls="collapseFive">
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseFive" aria-expanded="false"
+                                                        aria-controls="collapseFive">
                                                         Others
                                                     </div>
                                                 </div>
                                                 <div id="collapseFive" className="collapse"
-                                                     aria-labelledby="headingFive"
-                                                     data-parent="#faq_accordion">
+                                                    aria-labelledby="headingFive"
+                                                    data-parent="#faq_accordion">
                                                     <div className="card-body list">
                                                         <p>I'm having issues claming with my daily hours</p>
                                                         <p>How much do you gain per level?</p>

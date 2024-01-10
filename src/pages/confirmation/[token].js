@@ -1,6 +1,6 @@
 import axios from "axios";
-import {useRouter} from "next/dist/client/router";
-import React, {useEffect, useState} from "react";
+import { useRouter } from "next/dist/client/router";
+import React, { useEffect, useState } from "react";
 // import Layout from "../../components/layout/Layout";
 import SentConfirmation from "../../components/modal/confirmEmail";
 // import config from "../../utils/config";

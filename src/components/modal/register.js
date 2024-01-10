@@ -110,11 +110,17 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
               });
 
               if (response.ok) {
-                setNotActive(true);
-                setTitle('Inscription réussie.');
-                setContent(
-                  'Veuillez consulter votre email pour confirmer votre inscription!'
-                );
+                // setTitle('Inscription réussie.');
+                // setContent(
+                //   'Veuillez consulter votre email pour confirmer votre inscription!'
+                // );
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Inscription réussi!',
+                  text: 'Veuillez consulter votre email pour confirmer votre inscription!',
+                });
+                setShowRegister(false);
+                // setNotActive(true);
               } else {
                 const data = await response.json();
                 Swal.fire({
@@ -132,8 +138,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
             })
             .catch((err) => {
               console.error(err);
-              setError(true);
-              setNotActive(true);
               Swal.fire({
                 icon: 'error',
                 title: 'Erreur',
@@ -145,8 +149,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
             })
         }
       } else {
-        setError(true);
-        setNotActive(true);
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
@@ -155,8 +157,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
         setFormLoading(false);
       }
     } else {
-      setNotActive(true);
-      setError(true);
       Swal.fire({
         icon: 'error',
         title: 'Erreur',
@@ -164,6 +164,7 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
       });
       setCaptcha('');
       resetCaptcha();
+      setFormLoading(false);
     }
   }
 
@@ -558,7 +559,7 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
                                   } w-full`}
                                 disabled={formLoading}
                               >
-                                {formLoading ? "Loading..." : "Register"}
+                                {formLoading ? "En cours de traitement ..." : "S'inscrire"}
                               </button>
                             </div>
                           </div>

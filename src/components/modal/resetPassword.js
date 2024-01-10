@@ -235,7 +235,7 @@ function ResetPassword({ setShowResetPass, showResetPass }) {
                                                                     } w-full`}
                                                                 disabled={loadingResetPassword}
                                                             >
-                                                                {loadingResetPassword ? "Loading..." : "Valider"}
+                                                                {loadingResetPassword ? "En cours de traitement ..." : "Valider"}
                                                             </button>
                                                         </div>
                                                     </div>

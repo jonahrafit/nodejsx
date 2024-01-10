@@ -13,7 +13,7 @@ import { bake_cookie } from "sfcookies";
 import { Dialog, Transition } from "@headlessui/react";
 import SentConfirmation from "./confirmEmail";
 import ResetPassword from "../modal/resetPassword";
-
+import Swal from "sweetalert2";
 import { getUserAuth } from "../../store/actions/userAction";
 
 // import {bake_cookie, read_cookie, delete_cookie} from 'sfcookies';
@@ -63,10 +63,15 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
     }, 0);
 
     if (!data || !data.email || !data.mdp || !captcha) {
-      setError(true);
-      setNotActive(true);
-      setTitle("Erreur");
-      setContent("Veuillez remplir tous les champs requis");
+      Swal.fire({
+        icon: 'info',
+        title: 'Info',
+        text: "Veuillez remplir tous les champs requis",
+      });
+      // setError(true);
+      // setNotActive(true);
+      // setTitle("Erreur");
+      // setContent("Veuillez remplir tous les champs requis");
       return;
     }
 
@@ -137,10 +142,15 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
     }
 
     if (_errorMessage) {
-      setTitle("Erreur");
-      setContent(_errorMessage);
-      setNotActive(true);
-      setError(true);
+      // setTitle("Erreur");
+      Swal.fire({
+        icon: 'info',
+        title: 'Erreur!',
+        text: _errorMessage,
+      });
+      // setContent(_errorMessage);
+      // setNotActive(true);
+      // setError(true);
     }
   }
 
@@ -412,7 +422,7 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
                                   } w-full`}
                                 disabled={loadingLogin}
                               >
-                                {loadingLogin ? "Loading..." : "Login"}
+                                {loadingLogin ? "En cours de traitement ..." : "Se connecter"}
                               </button>
                               {/* <input
                                 type="submit"

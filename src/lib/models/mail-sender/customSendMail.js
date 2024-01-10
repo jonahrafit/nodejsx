@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 export async function sendMailCustom(data) {
-    const {email, subject, html} = data;
+    const { email, subject, html } = data;
     const transporter = nodemailer.createTransport({
         host: process.env.ZOHO_HOST,
         port: process.env.ZOHO_PORT,

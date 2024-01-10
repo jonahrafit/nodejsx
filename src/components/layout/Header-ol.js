@@ -54,7 +54,6 @@ function Header() {
     await axios
       .get(`/api/statistiques/${auth?.user?.hashId}`)
       .then(async (res) => {
-        console.log(res.data.total);
         await setTotal(res.data.total);
       });
   }

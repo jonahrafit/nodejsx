@@ -61,7 +61,6 @@ export default function UserAdmin() {
         await axios
             .post(`/api/user/avertissement`, {idUser: idAvertissement, raison})
             .then((res) => {
-                console.log(res);
                 if (res.status == 200) {
                     setConfirmAvertissement(false);
                     setRaison("");

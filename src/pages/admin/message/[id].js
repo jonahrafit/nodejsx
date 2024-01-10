@@ -40,7 +40,6 @@ export default function DetailsMess() {
     }
 
     function luMessage() {
-        console.log("lu");
         axios.post(`/api/messagerie/update`, {
             id2: data.id2,
             reponse: "",
@@ -51,12 +50,6 @@ export default function DetailsMess() {
 
     function repondreMessage(e) {
         e.preventDefault();
-        console.log({
-            id2: data.id2,
-            reponse: reponse,
-            user: data.user,
-            sujet: data.titre,
-        });
         axios
             .post(`/api/messagerie/update`, {
                 id2: data.id2,

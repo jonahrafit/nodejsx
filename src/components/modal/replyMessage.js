@@ -16,12 +16,6 @@ function ReplyMessage({ setShowReplyMessage, showReplyMessage, dataMessage }) {
 
     function updateMessage(e) {
         e.preventDefault();
-        console.log({
-            id2: dataMessage.id2,
-            reponse: reponse,
-            user: dataMessage.user,
-            sujet: dataMessage.titre,
-        });
         axios
             .post(`/api/messagerie/update`, {
                 id2: dataMessage.id2,

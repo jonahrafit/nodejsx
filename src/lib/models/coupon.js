@@ -30,7 +30,6 @@ const getCouponById = async (req, res) => {
 
 const deleteCouponById = async (req, res) => {
     const id = req.query.id;
-    //console.log("call me", id);
 
     try {
         let couponData = await executeQuery({
@@ -97,15 +96,11 @@ const newCoupon = async (req, res) => {
                 coupon.image,
             ],
         });
-        //console.log('error there');
         couponData = await executeQuery(
             `select * from coupons where id =  ${couponData.insertId}`
         );
         res.status(201).json(couponData);
     } catch (error) {
-        //console.log('there is error newCoupon');
-        //console.log(error);
-        //console.log(err);
         res.status(500).json(error);
     }
 };
@@ -127,7 +122,6 @@ const updateCoupon = async (req, res) => {
         dateFin,
         image,
     } = req.body;
-    console.log(req.body);
     try {
         let couponData = await executeQuery({
             query: "select * from coupons where id = ?",

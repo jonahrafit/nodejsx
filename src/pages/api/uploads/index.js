@@ -13,7 +13,6 @@ export default async function handler(req, res) {
             path: name,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             path: error,
         });

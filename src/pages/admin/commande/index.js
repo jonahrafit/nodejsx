@@ -26,7 +26,6 @@ export default function ValidationAdmin() {
 
     function checkedAll() {
         setAllCheckedTest(!allCheckedTest);
-        // console.log("allCheckedTest ==> ", allCheckedTest);
         const x = [];
         if (allCheckedTest === true) {
             validated.forEach((e) => {
@@ -55,9 +54,6 @@ export default function ValidationAdmin() {
                     await setIsUpdated('OK');
                     await setCodePromo('');
                     let _elt = document.getElementById('code-prom');
-                    // console.log('codePromo');
-                    // console.log(codePromo);
-                    // console.log(_elt);
                     if (!_elt) {
                         _elt = document.getElementById('code-promo');
                     }

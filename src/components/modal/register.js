@@ -41,7 +41,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
   async function signup(e) {
     e.preventDefault();
     setFormLoading(true);
-    console.log('eto');
     const captchaResponse = captchaCalculation.reduce((acc, curr) => {
       //   // 1 + 2 = 3  // 1 - 2 = -1
       if (typeof curr === 'number') {
@@ -70,7 +69,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
     }
 
     if (captcha.toString() === captchaResponse.toString()) {
-      console.log('captcha', captcha);
       const response = await axios.get('/api/getIpInfo'
         // "https://ipinfo.io/json?token=0567502d77f05a"
       ).then((res) => res)
@@ -83,10 +81,8 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
       if (_data?.data?.length) {
         country = _data.data[0] ?? null;
       }
-      console.log('_data country', _data);
 
       let _code = country?.code ?? '';
-      console.log('country code ', _code);
       if (_code.length >= 0) {
         _code = _code !== '' ? JSON.parse(_code) : [];
         const isExist = _code.find(
@@ -99,10 +95,8 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
           setContent("Ce site n'est pas disponible dans votre pays");
         } else if (!formLoading) {
           setFormLoading(true);
-          console.log('USER', user);
           axios.get('https://api.db-ip.com/v2/free/self')
             .then(async (res) => {
-              console.log("API DB FREE", res.data);
               const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: {

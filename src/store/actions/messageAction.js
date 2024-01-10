@@ -4,7 +4,6 @@ import {ALL_MESSAGES, NEW_MESSAGE} from "../types";
 
 export const getAllMessage = () => async (dispatch) => {
     const response = await axios.get(`/api/user/message`);
-    console.log(response);
     try {
         dispatch({
             type: ALL_MESSAGES,

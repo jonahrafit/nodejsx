@@ -23,7 +23,6 @@ export async function inscription({email, nom, prenom, mdp}) {
     };
 
     const checkUser = await findUser({email});
-    // console.log(checkUser);
     if (checkUser?.length > 0) {
         return {
             message: 'email existe déjà',
@@ -63,7 +62,6 @@ export async function login({email, mdp}) {
 
 export async function findUser({email}) {
     try {
-        console.log('FIND USER');
         return await executeQuery({
             query: 'SELECT * FROM users WHERE email = ?',
             values: [email],
@@ -91,7 +89,6 @@ export async function setConfirm({hashId}) {
             values: [hashId],
         });
     } catch (error) {
-        console.log(error);
         return Promise.reject(() => null);
     }
 }

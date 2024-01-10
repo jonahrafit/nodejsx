@@ -23,7 +23,6 @@ function HeaderAdmin() {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(auth);
         if (auth.user && auth.user.level !== 99) {
             navigate.push('/');
         }

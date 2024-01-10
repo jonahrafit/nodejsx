@@ -22,19 +22,11 @@ export default function Side({ children }) {
     elem.click();
   }
 
-  // useEffect(() => {
-  //   console.log(auth);
-  // }, [auth]);
-
-  // console.log("path: ", router.pathname);
-
-  //useEffect(() => s(), []);
   function s() {
     axios
       .post(`/api/ticket/findTicket`, { email: auth.user?.email })
       .then((res) => {
         const c = res?.data?.filter((e) => e.vu == 0 && e.status == "OK");
-        // console.log(c);
         setCountMessages(c?.length);
       })
       .catch((err) => console.log(err));
@@ -54,7 +46,6 @@ export default function Side({ children }) {
         )
         .then(() => {
           setIsLoading(false);
-          console.log("vita eeee");
           dispatch(getUserAuth());
         });
     };

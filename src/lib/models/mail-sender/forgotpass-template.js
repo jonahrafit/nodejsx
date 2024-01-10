@@ -1,6 +1,6 @@
 const forgotPassTemplate = (data) => {
-    const {email, nom, prenom, mdp, url, hashId} = data;
-    return `
+  const { email, nom, prenom, mdp, url, hashId } = data;
+  return `
    
    <!DOCTYPE html>
 <html>

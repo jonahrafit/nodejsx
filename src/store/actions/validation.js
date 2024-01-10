@@ -53,7 +53,6 @@ export const getPendingAmount = (id) => async (dispatch) => {
     // for (const data of responseMission.data) {
     //   if (data.status === 'PENDING') sum += data.amount;
     // }
-    // console.log(sum);
     try {
         dispatch({
             type: PENDING_AMOUNT,

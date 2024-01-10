@@ -14,7 +14,6 @@ export async function addCountry(code) {
 
 export async function getCountries() {
     try {
-        console.log('GEST TOUENR ');
         return await executeQuery({
             query: `SELECT * from countries`,
         });

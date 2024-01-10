@@ -82,7 +82,6 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
         await axios
           .get("https://ipinfo.io/json?token=0567502d77f05a")
           .then((res) => {
-            console.log(res.data?.country);
             setActiveCountry(res.data?.country);
           })
           .catch((err) => {
@@ -105,7 +104,6 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
         if (_data?.data?.length) {
           country = _data.data[0] ?? null;
         }
-        console.log('DATA ', _data);
         let _code = country?.code ?? "";
         if (_code.length >= 0) {
           _code = _code !== "" ? JSON.parse(_code) : [];
@@ -114,7 +112,6 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
           if (isExist) {
             _errorMessage = "Ce site n'est pas disponible dans votre pays.";
           } else {
-            console.log('else ', isExist);
             await axios
               .post(`/api/auth/login`, data)
               .then((res) => {

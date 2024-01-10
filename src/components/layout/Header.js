@@ -27,7 +27,6 @@ function Header() {
         attente: 0,
         commande: 0,
     });
-    // console.log(auth.user.euros);
     useEffect(() => {
 
         // Perform logic that requires access to the Redux store
@@ -105,7 +104,6 @@ function Header() {
         axios
             .get(`/api/statistiques/${auth?.user?.hashId}`)
             .then((res) => {
-                console.log(res.data.total);
                 setTotal(res.data.total);
             });
     }

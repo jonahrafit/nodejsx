@@ -1,4 +1,3 @@
-
 const confirmationAccountTemplate = (data) => {
   const { email, nom, prenom, url, hashId } = data;
   console.log('URL ', url);

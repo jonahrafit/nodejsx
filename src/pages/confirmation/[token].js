@@ -19,11 +19,9 @@ function Blank() {
                     hashId: router.query.token,
                 })
                 .then((res) => {
-                    // console.log(res);
                     setLoading(false);
                 })
                 .catch(async (err) => {
-                    // console.log(err);
                     await setIsError(true);
                     await setTitle('Erreur');
                     await setMessage(err.response?.message ?? 'Erreur inattendue.');

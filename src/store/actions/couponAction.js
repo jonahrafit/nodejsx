@@ -9,7 +9,6 @@ import {
 
 export const getAllCoupon = () => async (dispatch) => {
     const response = await axios.get(`/api/coupon/coupon`);
-    console.log(response);
     try {
         dispatch({
             type: COUPON_LIST,

@@ -27,6 +27,7 @@ function Header() {
         attente: 0,
         commande: 0,
     });
+    const [isGreet, setIsGreet] = useState(null);
     // console.log(auth.user.euros);
     useEffect(() => {
 
@@ -46,8 +47,16 @@ function Header() {
         };
 
         // Fetch data when the component mounts
+        fetch('/api/greet')
+            .then(response => response.json())
+            .then(data => {
+                setIsGreet(data.isBeforeReferenceDate);
+                console.log('Is before' , data.isBeforeReferenceDate);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération de donnée greet :', error);
+            });
         fetchData();
-
         // Cleanup function to update the mount status
 
     }, []);
@@ -498,7 +507,7 @@ function Header() {
                                         </div>
                                     </div>
                                 )}
-                                {!auth.isAuth && (
+                                {!auth.isAuth && isGreet && (
                                     <div>
                                         <div className="flex items-center space-x-2 sm:space-x-4">
                                             <div className="inline-flex">

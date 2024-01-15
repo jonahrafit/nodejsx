@@ -50,7 +50,7 @@ export async function sendMail(data) {
         if (err) {
             return {err, success: false};
         } else {
-            return {message: "Email send", success: true, info};
+            return {message: "Un email de confirmation a été envoyé avec succès.  ", success: true, info};
         }
     });
 }

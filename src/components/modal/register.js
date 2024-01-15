@@ -57,15 +57,16 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
     if (!user || !user.nom || !user.prenom || !user.email || !user.mdp) {
       setError(true);
       setNotActive(true);
-      setTitle('Erreur');
-      setContent('Veuillez remplir tous les champs requis');
-      setUser({
-        nom: '',
-        prenom: '',
-        email: '',
-        mdp: '',
-        parrain: '',
-      });
+      setTitle('Erreur de formulaire');
+      setContent('Veuillez remplir tous les champs requis avant de soumettre');
+      setFormLoading(false);
+      // setUser({
+      //   nom: '',
+      //   prenom: '',
+      //   email: '',
+      //   mdp: '',
+      //   parrain: '',
+      // });
       return;
     }
 
@@ -116,30 +117,30 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
               });
 
               if (response.ok) {
-                // setTitle('Inscription réussie.');
-                // setContent(
-                //   'Veuillez consulter votre email pour confirmer votre inscription!'
-                // );
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Inscription réussi!',
-                  text: 'Veuillez consulter votre email pour confirmer votre inscription!',
-                });
+                setTitle('Inscription réussie.');
+                setContent(
+                  'Veuillez consulter votre email pour confirmer votre inscription!'
+                );
+                // Swal.fire({
+                //   icon: 'success',
+                //   title: 'Inscription réussi!',
+                //   text: 'Veuillez consulter votre email pour confirmer votre inscription!',
+                // });
                 setShowRegister(false);
-                // setNotActive(true);
+                setNotActive(true);
               } else {
                 const data = await response.json();
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Erreur',
-                  text: data.message ?
-                    'Cette adresse e-mail existe déjà. Veuillez en choisir une autre'
-                    : 'Erreur inattendue',
-                });
-                // setError(true);
-                // setNotActive(true);
-                // setTitle('Erreur');
-                // setContent(data.message ?? 'Erreur inattendue.');
+                // Swal.fire({
+                //   icon: 'error',
+                //   title: 'Erreur',
+                //   text: data.message ?
+                //     'Cette adresse e-mail existe déjà. Veuillez en choisir une autre'
+                //     : 'Erreur inattendue',
+                // });
+                setError(true);
+                setNotActive(true);
+                setTitle('Erreur');
+                setContent(data.message ?? 'Erreur inattendue.');
               }
             })
             .catch((err) => {
@@ -163,11 +164,10 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
         setFormLoading(false);
       }
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: 'Erreur de code captcha, veuillez réessayer.'
-      });
+      setError(true);
+      setNotActive(true);
+      setTitle('Erreur');
+      setContent('Erreur de code captcha, veuillez réessayer');
       setCaptcha('');
       resetCaptcha();
       setFormLoading(false);
@@ -255,7 +255,7 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
                             type="button"
                             className="inline-flex items-center justify-center gap-0.5 font-medium text-indigo-600 "
                           >
-                            <span className="text-indigo-600 px-2">Login</span>
+                            <span className="text-indigo-600 px-2">Se connecter</span>
                           </button>
                         </div>
                       </div>

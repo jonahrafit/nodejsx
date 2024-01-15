@@ -27,7 +27,7 @@ export async function sendMailCustom(data) {
                 return { err: error, message: "Email not send", success: false };
             } else {
                 console.log("Email sent: " + info.response);
-                return { message: "Email send", success: true, info };
+                return { message: "Un email de confirmation a été envoyé avec succès.  ", success: true, info };
             }
         });
 

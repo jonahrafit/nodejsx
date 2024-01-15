@@ -1,21 +1,22 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import {Fragment, useRef, useState} from 'react';
-import {Dialog, Transition} from '@headlessui/react';
-import {ExclamationTriangleIcon} from '@heroicons/react/24/outline';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUserAuth} from '../../store/actions/userAction';
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserAuth } from '../../store/actions/userAction';
 import axios from 'axios';
 import uploadFile from '../../utils/uploadService';
 import IdentityPendingModal from './identityPending';
 
-function IdentityModal({show, setShow, setPending}) {
+function IdentityModal({ show, setShow, setPending }) {
     const cancelButtonRef = useRef(null);
     const dispatch = useDispatch();
     const [identityCardRecto, setIdentityCardRecto] = useState('');
     const [identityCardVerso, setIdentityCardVerso] = useState('');
     const [address, setAddress] = useState('');
     const [block, setBlock] = useState(false);
+    const [isLoadingForm, setLoadingForm] = useState(false);
     const auth = useSelector((state) => state.auth);
     useEffect(() => {
         dispatch(getUserAuth());
@@ -38,6 +39,7 @@ function IdentityModal({show, setShow, setPending}) {
     }
 
     async function addIdentity() {
+        setLoadingForm(true);
         let recto = '';
         let verso = '';
         let addressInside = '';
@@ -63,6 +65,7 @@ function IdentityModal({show, setShow, setPending}) {
             .then(() => {
                 setPending(true);
                 setShow(false);
+                setLoadingForm(false);
             });
     }
 
@@ -84,7 +87,7 @@ function IdentityModal({show, setShow, setPending}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -189,9 +192,10 @@ function IdentityModal({show, setShow, setPending}) {
                                         <button
                                             onClick={() => addIdentity()}
                                             type="button"
+                                            disable={isLoadingForm}
                                             className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                                         >
-                                            Valider
+                                            {isLoadingForm ? 'En cours de traitement . . .' : 'Valider'}
                                         </button>
                                     </div>
                                 </Dialog.Panel>

@@ -39,23 +39,30 @@ function Blank() {
         content: '',
     });
     const dispatch = useDispatch();
+    const [loading_modify_user, setLoadingModifyUser] = useState(false);
+    const [loading_add_account, setLoadingAddAccount] = useState(false);
+    const [loading_change_password, setLoadingChangePassword] = useState(false);
     const auth = useSelector((state) => state.auth);
+    
     useEffect(() => {
         setUser(auth.user);
         setAccount(auth.user);
     }, [auth]);
+
     useEffect(() => {
         dispatch(getUserAuth()).then();
     }, [dispatch]);
 
     function modifyUser(e) {
         e.preventDefault();
+        setLoadingModifyUser(true);
         if (auth.user?.completedProfile === 1) {
             setShow(true);
             setData({
                 content: "Vous avez déjà modifier votre information",
                 title: "Information",
             });
+            setLoadingModifyUser(false);
         } else {
             axios
                 .post(`/api/auth/edit-user`, { ...user, completedProfile: true })
@@ -76,18 +83,21 @@ function Blank() {
                 })
                 .finally(() => {
                     setShow(true);
+                    setLoadingModifyUser(false);
                 });
         }
     }
 
     function addAccount(e) {
         e.preventDefault();
+        setLoadingAddAccount(true);
         if (auth.user?.completedAccount === 1) {
             setShow(true);
             setData({
                 content: "Vous avez déjà modifier votre information",
                 title: "Information",
             });
+            setLoadingAddAccount(false);
         } else {
             axios
                 .post(`/api/auth/add-account`, {
@@ -111,6 +121,7 @@ function Blank() {
                     });
                 })
                 .finally(() => {
+                    setLoadingAddAccount(false);
                     setShow(true);
                 });
         }
@@ -118,11 +129,12 @@ function Blank() {
 
     function changePassword(e) {
         e.preventDefault();
+        setLoadingChangePassword(true);
         axios
             .post(`/api/auth/change-password`, {
                 ...mdpData,
-                email: user.email,
-                hashId: user.hashId,
+                email: auth.user.email,
+                hashId: auth.user.hashId,
             })
             .then((res) => {
                 setSuccess(true);
@@ -134,13 +146,14 @@ function Blank() {
             })
             .catch((err) => {
                 setData({
+                    title: "Information",
                     content: err.response.data.message
                         ? err.response.data.message
                         : "erreur",
-                    title: "Information",
                 });
             })
             .finally(() => {
+                setLoadingChangePassword(false);
                 setShow(true);
                 setMdpData({
                     email: '',
@@ -153,13 +166,14 @@ function Blank() {
 
     return (
         <>
-            <Layout subTitle="Back to Home" pageTitle="Settings">
+            <Layout subTitle="Back to Home" pageTitle="Paramètres">
                 <div className="container">
+
                     <div className="card border border-indigo-400 bg-white p-4 shadow-md border-radius">
                         <h5 className="mb-3">
                             <span
                                 className="background-middle-title underline underline-offset-1 decoration-[10px] decoration-yellow-200 text-xl">
-                                Account settings
+                                Paramètres du compte
                             </span>
                         </h5>
                         <form onSubmit={(e) => modifyUser(e)}>
@@ -312,17 +326,18 @@ function Blank() {
                                 </div>
                             </div>
                             <div className="col-sm-12 text-end">
-                                <button type="submit" className="btn btn-primary">
-                                    Enrégistrer
+                                <button type="submit" className="btn btn-primary" disabled={loading_modify_user}>
+                                    {loading_modify_user ? 'En cours de traitement . . .' : 'Enregistrer'}
                                 </button>
                             </div>
                         </form>
                     </div>
+                    
                     <div className="card border border-indigo-400 bg-white p-4 shadow-md border-radius">
                         <h5 className="mb-3">
                             <span
                                 className="background-middle-title underline underline-offset-1 decoration-[10px] decoration-yellow-200 text-xl">
-                                Payment Setting
+                                Paramètre de payement
                             </span>
                         </h5>
                         <form onSubmit={(e) => addAccount(e)}>
@@ -392,12 +407,14 @@ function Blank() {
                             </div>
 
                             <div className="col-sm-12 text-end">
-                                <button type="submit" className="btn btn-primary">
-                                    Enrégistrer
+                                <button type="submit" className="btn btn-primary"
+                                    disabled={loading_add_account}>
+                                    {loading_add_account ? 'En cours de traitement . . . ' : 'Enregistrer'}
                                 </button>
                             </div>
                         </form>
                     </div>
+
                     <div className="card border border-indigo-400 bg-white p-4 shadow-md border-radius">
                         <h5 className="mb-3">
                             <span
@@ -462,8 +479,10 @@ function Blank() {
                             </div>
 
                             <div className="col-sm-12 text-end">
-                                <button className="btn btn-primary">
-                                    Enrégistrer
+                                <button className="btn btn-primary"
+                                    disabled={loading_change_password}
+                                >
+                                    {loading_change_password ? 'En cours de traitement . . . ' : 'Enregistrer'}
                                 </button>
                             </div>
                         </form>

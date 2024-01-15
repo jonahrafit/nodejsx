@@ -1,12 +1,17 @@
 import React from "react";
 import Link from "next/link";
-import {Fragment, useRef, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationCircleIcon, CheckCircleIcon } from "@heroicons/react/outline";
 
-function Alert({show, setShow, content, title, isSuccess = true}) {
+function Alert({ show, setShow, content, title, isSuccess }) {
     const cancelButtonRef = useRef(null);
 
+    const icon = !isSuccess ? (
+        <ExclamationCircleIcon className="h-12 w-12 text-red-500 mr-3" />
+    ) : (
+        <CheckCircleIcon className="h-12 w-12 text-green-500 mr-3" />
+    );
     return (
         <>
             <Transition.Root show={show} as={Fragment}>
@@ -25,7 +30,7 @@ function Alert({show, setShow, content, title, isSuccess = true}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -44,7 +49,8 @@ function Alert({show, setShow, content, title, isSuccess = true}) {
                                     className="relative min-w-[400px] transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 ">
                                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                         <div className="sm:flex sm:items-start">
-                                            <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
+                                            {icon}
+                                            <div className="sm:mt-0 sm:ml-4 sm:text-left">
                                                 <Dialog.Title
                                                     as="h3"
                                                     className="text-lg font-medium leading-6 text-gray-900"

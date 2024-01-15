@@ -58,7 +58,7 @@ export async function sendMessage(users) {
                     current_date,
                 ],
             });
-            return {message: "Email send", success: true, info};
+            return {message: "Email envoyé", success: true, info};
         }
     });
 

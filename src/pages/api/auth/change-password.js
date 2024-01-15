@@ -1,16 +1,19 @@
 import executeQuery from "../../../lib/database";
-import {findUser} from "../../../lib/models/auth";
+import { findUser } from "../../../lib/models/auth";
 
 const bcrypt = require("bcrypt");
 
 // api: http://localhost:3000/api/auth/login
 export default async function handler(req, res) {
-    const {email, mdp, newMdp, hashId} = req.body;
+    const { email, mdp, newMdp, hashId } = req.body;
+    console.log('REQ BODY', req.body);
     try {
-        const user = await findUser({email});
+        const user = await findUser({ email });
         const mdpUser = user[0].mdp;
         const checkPassword = await bcrypt.compare(mdp, mdpUser);
-
+        console.log('user', user);
+        console.log('mdpUser', mdpUser);
+        console.log('checkPassword', checkPassword);
         if (checkPassword) {
             const salt = await bcrypt.genSalt();
             const hashPassword = await bcrypt.hash(newMdp, salt);

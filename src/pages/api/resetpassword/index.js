@@ -19,9 +19,9 @@ export default async function handler(req, res) {
         });
 
         if (retourEmail) {
-            res.status(200).json({ message: "Email send", success: true });
+            res.status(200).json({ message: "Un email de confirmation a été envoyé avec succès.  ", success: true });
         } else {
-            res.status(400).json({ message: "Email not send", success: false });
+            res.status(400).json({ message: "Email non envoyé", success: false });
         }
     } else {
         res.status(400).json({

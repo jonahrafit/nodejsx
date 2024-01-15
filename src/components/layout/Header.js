@@ -51,7 +51,6 @@ function Header() {
             .then(response => response.json())
             .then(data => {
                 setIsGreet(data.isBeforeReferenceDate);
-                console.log('Is before' , data.isBeforeReferenceDate);
             })
             .catch(error => {
                 console.error('Erreur lors de la récupération de donnée greet :', error);
@@ -79,23 +78,6 @@ function Header() {
             confirmButtonText: "Oui",
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.mixin({
-                    toast: true,
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener("mouseenter", Swal.stopTimer);
-                        toast.addEventListener(
-                            "mouseleave",
-                            Swal.resumeTimer
-                        );
-                    }
-                }).fire({
-                    icon: "success",
-                    title: "Vous êtes déconnécté avec succès!",
-                });
                 dispatch(logoutUser()).then(() => {
                     router.push("/");
                 });

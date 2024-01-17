@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuth } from '../../store/actions/userAction';
 import ChartData from '../chart/chart';
 import Layout from '../layout/Layout';
+import CardHeader from './cardHeader';
 
+import { CurrencyEuroIcon } from '@heroicons/react/solid';
+import { ShoppingBagIcon } from '@heroicons/react/outline';
 function Profile() {
   const dispatch = useDispatch();
 
@@ -63,39 +66,27 @@ function Profile() {
                       <div className="card">
                         <div className="card-body">
                           <div className="d-flex lg:justify-between justify-center flex-wrap">
-                            <div
-                              onClick={() => {
-                                setName('Gains validé');
-                              }}
-                              className="chart_current_data !min-w-[190px] !mb-1 cursor-pointer hover:!bg-indigo-400 !bg-indigo-500"
-                            >
-                              <h3 className="!text-white">
-                                {total?.gain ? total?.gain : 0} EU
-                              </h3>
-                              <p className="!text-white">Gains validé</p>
-                            </div>
-                            <div
-                              onClick={() => {
-                                setName('Gains en attente');
-                              }}
-                              className="chart_current_data !min-w-[190px] !mb-1 cursor-pointer hover:!bg-green-400 !bg-green-500 mx-2"
-                            >
-                              <h3 className="!text-white">
-                                {total?.attente ? total?.attente : 0} EU
-                              </h3>
-                              <p className="!text-white">Gains en attente</p>
-                            </div>
-                            <div
-                              onClick={() => {
-                                setName('Nombre de commande');
-                              }}
-                              className="chart_current_data !min-w-[190px] !mb-1 cursor-pointer hover:!bg-yellow-400 !bg-yellow-500 mx-2"
-                            >
-                              <h3 className="!text-white">
-                                {total?.commande ? total?.commande : 0}
-                              </h3>
-                              <p className="!text-white">Nombre de commande </p>
-                            </div>
+                            <CardHeader
+                              icon={<CurrencyEuroIcon className='h-14 text-white' />}
+                              texte={'Gains validé'}
+                              setName={setName}
+                              nombre={total?.gain ? total?.gain : 0}
+                              style={'hover:!bg-indigo-400 !bg-indigo-500'}
+                            />
+                            <CardHeader
+                              icon={<CurrencyEuroIcon className='h-14 text-white' />}
+                              texte={'Gains en attente'}
+                              setName={setName}
+                              nombre={total?.attente ? total?.attente : 0}
+                              style={'hover:!bg-green-400 !bg-green-500'}
+                            />
+                            <CardHeader
+                              icon={<ShoppingBagIcon className='h-14 text-white' />}
+                              texte={'Mes commandes'}
+                              setName={setName}
+                              nombre={total?.commande ? total?.commande : 0}
+                              style={'hover:!bg-yellow-400 !bg-yellow-500'}
+                            />
                           </div>
                         </div>
                         <div className="mt-5 -px-5">

@@ -264,234 +264,252 @@ function Header() {
                             >
                                 {auth.isAuth && (
                                     <div className="hidden lg:block">
-                                        <div
-                                            className="flex items-center h-full lg:space-x-4 max-w-md lg:max-w-none mx-auto lg:mx-0"></div>
+                                        <div className="flex items-center h-full lg:space-x-4 max-w-md lg:max-w-none mx-auto lg:mx-0"></div>
                                     </div>
                                 )}
                                 {auth.isAuth && (
-                                    <div className="flex items-center space-x-2 shrink-0">
-                                        <div>
-                                            <div
-                                                className="flex items-center bg-indigo-100 rounded-full pl-3 pr-1 h-10 cursor-pointer">
-                                                <div className="flex items-center">
-                                                    {/* <div>
+                                    <div className="flex flex-row space-x-2 ">
+                                        <div className="flex items-center space-x-2 shrink-0">
+                                            <div className="flex items-center bg-indigo-100 rounded-full pl-3 pr-3 h-10 cursor-pointer">
+                                                <Link href="/">
+                                                    <a className="flex items-center justify-center font-semibold text-center w-full h-full">
+                                                        Acceuil
+                                                    </a>
+
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center space-x-2 shrink-0">
+                                            <div className="flex items-center bg-indigo-100 rounded-full pl-3 pr-3 h-10 cursor-pointer">
+                                                <Link href="/boutique">
+                                                    <a className="flex items-center justify-center font-semibold text-center w-full h-full">
+                                                        Boutique
+                                                    </a>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center space-x-2 shrink-0">
+                                            <div>
+                                                <div className="flex items-center bg-indigo-100 rounded-full pl-3 pr-1 h-10 cursor-pointer">
+                                                    <div className="flex items-center">
+                                                        {/* <div>
                             {total.gain > 0 ? (
                               <span className="font-semibold d-flex items-center">
                                 {total.gain?.toFixed(2)}{" "}
-                                <i className="fa fa-coins text-yellow-500 ml-2"></i>
+                                <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
                               </span>
                             ) : (
                               <span className="font-semibold d-flex items-center">
                                 0
-                                <i className="fa fa-coins text-yellow-500 ml-2"></i>
+                                <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
                               </span>
                             )}
                           </div> */}
-                                                    <div>
-                                                        {auth && auth?.user?.euros > 0 ? (
-                                                            <span className="font-semibold d-flex items-center">
-                                                                {auth?.user?.euros}{" "}
-                                                                <i className="fa fa-coins text-yellow-500 ml-2"></i>
+                                                        <div>
+                                                            {auth && auth?.user?.euros > 0 ? (
+                                                                <span className="font-semibold d-flex items-center">
+                                                                    {auth?.user?.euros}{" "}
+                                                                    <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
+                                                                </span>
+                                                            ) : (
+                                                                <span className="font-semibold d-flex items-center">
+                                                                    0
+                                                                    <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <div className="h-5 w-px mx-2 bg-gray-500"></div>
+                                                        {pending > 0 ? (
+                                                            <span className=" ml-2">
+                                                                {pending?.toFixed(2)}{" "}
+                                                                <i className="fas fa-euro-sign text-yellow-500 mr-2"></i>{" "}
                                                             </span>
                                                         ) : (
-                                                            <span className="font-semibold d-flex items-center">
-                                                                0
-                                                                <i className="fa fa-coins text-yellow-500 ml-2"></i>
+                                                            <span className=" ml-2">
+                                                                0 <i className="fas fa-euro-sign text-yellow-500 mr-2"></i>{" "}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <div className="h-5 w-px mx-2 bg-gray-500"></div>
-                                                    {pending > 0 ? (
-                                                        <span className=" ml-2">
-                                                            {pending?.toFixed(2)}{" "}
-                                                            <i className="fa fa-coins text-yellow-500 mr-2"></i>{" "}
-                                                        </span>
-                                                    ) : (
-                                                        <span className=" ml-2">
-                                                            0 <i className="fa fa-coins text-yellow-500 mr-2"></i>{" "}
-                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div
+                                                    className="relative flex items-center bg-gray-200 rounded-full px-1 h-10">
+                                                    <button
+                                                        onClick={handleOpen}
+                                                        className="flex items-center space-x-2"
+                                                    >
+                                                        <div className="shrink-0">
+                                                            <img
+                                                                src={"./uploads/" + auth.user?.profileImage}
+                                                                className="h-8 w-8 rounded-full"
+                                                            />
+                                                        </div>
+                                                        <div className="max-w-[150px] text-black truncate hidden md:block">
+                                                            <span className="text-sm text-black">
+                                                                {auth.user?.nom} {auth.user?.prenom}
+                                                            </span>
+                                                        </div>
+                                                        <div className="shrink-0">
+                                                            <div className="flex items-center justify-center w-6 h-6">
+                                                                <svg
+                                                                    className="h-4 w-4 text-black"
+                                                                    viewBox="0 0 48 48"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <rect
+                                                                        width="48"
+                                                                        height="48"
+                                                                        fill="white"
+                                                                        fillOpacity="0.01"
+                                                                    ></rect>
+                                                                    <path
+                                                                        d="M36 19L24 31L12 19H36Z"
+                                                                        fill="none"
+                                                                        stroke="currentColor"
+                                                                        strokeWidth="4"
+                                                                        strokeLinejoin="round"
+                                                                    ></path>
+                                                                </svg>
+                                                                {" "}
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                    {openClass && (
+                                                        <div className="absolute top-12 right-0 z-10">
+                                                            <div
+                                                                className="absolute right-10 lg:right-4 w-3 h-3 bg-white rotate-45 -translate-y-1/2 -translate-x-1/2 border-t border-l"></div>
+                                                            <div className="w-[180px] bg-white border rounded-md shadow">
+                                                                <ul className="flex flex-col space-y-0.5 py-2">
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/coupon">
+                                                                                <span className="font-medium text-black">
+                                                                                    Coupon
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/boutique">
+                                                                                <span className="font-medium text-black">
+                                                                                    Boutique
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/mission">
+                                                                                <span className="font-medium text-black">
+                                                                                    Mission
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/offerwall">
+                                                                                <span className="font-medium text-black">
+                                                                                    Offerwall
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/offer">
+                                                                                <span className="font-medium text-black">
+                                                                                    Mes participations
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/my-commande">
+                                                                                <span className="font-medium text-black">
+                                                                                    Mes Commandes
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="!inline-flex xl:!hidden">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/support">
+                                                                                <span className="font-medium text-black">
+                                                                                    Support
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/">
+                                                                                <span className="font-medium text-black">
+                                                                                    Profil
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <Link href="/settings">
+                                                                                <span className="font-medium text-black">
+                                                                                    Paramètres
+                                                                                </span>
+                                                                            </Link>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button
+                                                                            onClick={() => logout()}
+                                                                            type="button"
+                                                                            className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
+                                                                        >
+                                                                            <span className="font-medium text-red-500">
+                                                                                Déconnexion
+                                                                            </span>
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <div
-                                                className="relative flex items-center bg-gray-200 rounded-full px-1 h-10">
-                                                <button
-                                                    onClick={handleOpen}
-                                                    className="flex items-center space-x-2"
-                                                >
-                                                    <div className="shrink-0">
-                                                        <img
-                                                            src={"./uploads/" + auth.user?.profileImage}
-                                                            className="h-8 w-8 rounded-full"
-                                                        />
-                                                    </div>
-                                                    <div className="max-w-[150px] text-black truncate hidden md:block">
-                                                        <span className="text-sm text-black">
-                                                            {auth.user?.nom} {auth.user?.prenom}
-                                                        </span>
-                                                    </div>
-                                                    <div className="shrink-0">
-                                                        <div className="flex items-center justify-center w-6 h-6">
-                                                            <svg
-                                                                className="h-4 w-4 text-black"
-                                                                viewBox="0 0 48 48"
-                                                                fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                            >
-                                                                <rect
-                                                                    width="48"
-                                                                    height="48"
-                                                                    fill="white"
-                                                                    fillOpacity="0.01"
-                                                                ></rect>
-                                                                <path
-                                                                    d="M36 19L24 31L12 19H36Z"
-                                                                    fill="none"
-                                                                    stroke="currentColor"
-                                                                    strokeWidth="4"
-                                                                    strokeLinejoin="round"
-                                                                ></path>
-                                                            </svg>
-                                                            {" "}
-                                                        </div>
-                                                    </div>
-                                                </button>
-                                                {openClass && (
-                                                    <div className="absolute top-12 right-0 z-10">
-                                                        <div
-                                                            className="absolute right-10 lg:right-4 w-3 h-3 bg-white rotate-45 -translate-y-1/2 -translate-x-1/2 border-t border-l"></div>
-                                                        <div className="w-[180px] bg-white border rounded-md shadow">
-                                                            <ul className="flex flex-col space-y-0.5 py-2">
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/coupon">
-                                                                            <span className="font-medium text-black">
-                                                                                Coupon
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/boutique">
-                                                                            <span className="font-medium text-black">
-                                                                                Boutique
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/mission">
-                                                                            <span className="font-medium text-black">
-                                                                                Mission
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/offerwall">
-                                                                            <span className="font-medium text-black">
-                                                                                Offerwall
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/offer">
-                                                                            <span className="font-medium text-black">
-                                                                                Mes participations
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/my-commande">
-                                                                            <span className="font-medium text-black">
-                                                                                Mes Commandes
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="!inline-flex xl:!hidden">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/support">
-                                                                            <span className="font-medium text-black">
-                                                                                Support
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li>
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/profile">
-                                                                            <span className="font-medium text-black">
-                                                                                Profil
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li>
-                                                                    <button
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <Link href="/settings">
-                                                                            <span className="font-medium text-black">
-                                                                                Paramètres
-                                                                            </span>
-                                                                        </Link>
-                                                                    </button>
-                                                                </li>
-                                                                <li>
-                                                                    <button
-                                                                        onClick={() => logout()}
-                                                                        type="button"
-                                                                        className="flex px-4 py-1 text-sm hover:text-indigo-600 w-full"
-                                                                    >
-                                                                        <span className="font-medium text-red-500">
-                                                                            Déconnexion
-                                                                        </span>
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
                                     </div>
                                 )}
-                                {/* {!auth.isAuth && isGreet && ( */}
                                 {!auth.isAuth && (
                                     <div>
                                         <div className="flex items-center space-x-2 sm:space-x-4">
@@ -539,6 +557,7 @@ function Header() {
                         </div>
                     </div>
                 </div>
+                <div className="flex items-center h-2 bg-yellow-500 w-full" />
             </header>
             <Register
                 showRegister={showRegister}

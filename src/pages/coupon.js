@@ -1,17 +1,18 @@
-import Link from "next/link";
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/layout/Layout";
 import ChooseCoupon from "../components/modal/coupon";
-import {getAllCoupon} from "../store/actions/couponAction";
-import convertDate from "../utils/converDate";
+import { getAllCoupon } from "../store/actions/couponAction";
+import { filterObjectsByName, generatePageNumbers } from "../utils/pagination";
 
 function Blank() {
     const dispatch = useDispatch();
-    const [valuePage, setValuePage] = useState({start: 0, end: 9});
+    const [valuePage, setValuePage] = useState({ start: 0, end: 9 });
     const coupon = useSelector((state) => state.coupon);
     const [show, setShow] = useState(false);
     const [current, setCurrent] = useState(false);
+    const [search, setSearch] = useState('');
+
     useEffect(() => {
         dispatch(getAllCoupon());
     }, [dispatch]);
@@ -24,14 +25,38 @@ function Blank() {
         }, 4000);
     }
 
+    const handleChangeValueSearch = (event) => {
+        setSearch(event.target.value);
+    };
+
+    const filteredCoupon = filterObjectsByName(coupon, search);
+
+    const pageSize = 9; // Nombre d'éléments par page
+    const totalPages = Math.ceil(filteredCoupon.length / pageSize);
+    const currentPage = valuePage.start / pageSize + 1;
+
     return (
         <>
             <Layout subTitle="Coupon" pageTitle="Choisir votre coupon">
                 <div className="gift_card">
                     <div className="container">
+                        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 my-2">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Recherche..."
+                                    name="search"
+                                    value={search}
+                                    onChange={handleChangeValueSearch}
+                                    className="py-2 px-4 rounded-full bg-gray-200 focus:outline-none focus:ring focus:border-indigo-300"
+                                />
+                            </div>
+                            <p>On trouve ({filteredCoupon.length}) résultat(s)</p>
+                        </div>
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5">
-                            {coupon.length > 0 &&
-                                coupon.slice(valuePage.start, valuePage.end).map((p) => (
+
+                            {filteredCoupon.length > 0 &&
+                                filteredCoupon.slice(valuePage.start, valuePage.end).map((p) => (
                                     <div key={p.id}>
                                         <div
                                             style={{
@@ -73,36 +98,29 @@ function Blank() {
                                 ))}
                         </div>
                         <div className="mt-4">
-                            <button
-                                onClick={() => {
-                                    setValuePage({
-                                        start: valuePage.start - 9,
-                                        end: valuePage.end - 9,
-                                    });
-                                }}
-                                disabled={valuePage.start === 0 ? true : false}
-                                className="mr-2 text-white text-sm font-extrabold rounded btn btn-primary "
-                            >
-                                Précédent
-                            </button>
-
-                            <button
-                                onClick={() => {
-                                    setValuePage({
-                                        start: valuePage.start + 9,
-                                        end: valuePage.end + 9,
-                                    });
-                                }}
-                                className="px-4 text-white text-sm font-extrabold rounded btn btn-primary "
-                                disabled={valuePage.end >= coupon?.length ? true : false}
-                            >
-                                Suivant
-                            </button>
+                            <ul className="flex space-x-2">
+                                {generatePageNumbers(totalPages).map((pageNumber) => (
+                                    <li key={pageNumber}>
+                                        <button
+                                            onClick={() => {
+                                                setValuePage({
+                                                    start: (pageNumber - 1) * pageSize,
+                                                    end: pageNumber * pageSize,
+                                                });
+                                            }}
+                                            className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
+                                                }`}
+                                        >
+                                            {pageNumber}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </Layout>
-            <ChooseCoupon coupon={current} setShow={setShow} show={show}/>
+            <ChooseCoupon coupon={current} setShow={setShow} show={show} />
         </>
     );
 }

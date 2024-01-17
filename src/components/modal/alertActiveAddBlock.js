@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
-import {Fragment, useRef, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
+import React, { useEffect } from "react";
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
-function AlertActiveAddBlock({show, setShow, content, title}) {
+function AlertActiveAddBlock({ show, setShow, content, title  }) {
     const cancelButtonRef = useRef(null);
     return (
         <>
@@ -22,7 +22,7 @@ function AlertActiveAddBlock({show, setShow, content, title}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -71,6 +71,17 @@ function AlertActiveAddBlock({show, setShow, content, title}) {
                                                 <div className="mt-2 text-center">
                                                     <p className="text-sm text-gray-500">{content}</p>
                                                 </div>
+                                                <div className="sm:flex sm:flex-row-reverse">
+                                                    <button
+                                                        type="button"
+                                                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-green-500 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                                        onClick={() => setShow(false)}
+                                                        ref={cancelButtonRef}
+                                                    >
+                                                        OK
+                                                    </button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

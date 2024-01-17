@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import executeQuery from "../../../lib/database";
-import { findUser } from "../../../lib/models/auth";
+import { findUser, findUserByIp } from "../../../lib/models/auth";
 import { sendMail } from "../../../lib/models/sendMail";
 
 const bcrypt = require("bcrypt");
@@ -25,6 +25,16 @@ export default async function handler(req, res) {
     return;
   }
 
+  const checkUserByIp = await findUserByIp({ ip });
+  if (checkUserByIp?.length > 0) {
+    res.status(400).json({
+      message: "Cette IP est déjà associer à un compte et un seul compte par foyer",
+      success: false,
+    });
+    res.end();
+    return;
+  }
+  
   // let apiKey = "RTMPOGQPV7";
   // let apiPackage = "PX11";
   // let useSSL = true;

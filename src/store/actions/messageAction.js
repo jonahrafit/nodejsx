@@ -1,6 +1,6 @@
 import axios from "axios";
 import config from "../../utils/config";
-import {ALL_MESSAGES, NEW_MESSAGE} from "../types";
+import { ALL_MESSAGES, NEW_MESSAGE, USER_ERROR } from "../types";
 
 export const getAllMessage = () => async (dispatch) => {
     const response = await axios.get(`/api/user/message`);

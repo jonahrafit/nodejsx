@@ -1,22 +1,23 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import {Fragment, useRef, useState} from 'react';
-import {Dialog, Transition} from '@headlessui/react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUserAuth} from '../../store/actions/userAction';
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserAuth } from '../../store/actions/userAction';
 import axios from 'axios';
 
-function AlertAvertissement({show, setShow, content, title, idAvert}) {
+function AlertAvertissement({ show, setShow, content, title, idAvert }) {
     const cancelButtonRef = useRef(null);
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+    
     useEffect(() => {
         dispatch(getUserAuth());
     }, [dispatch]);
 
     async function confirmAvertissement() {
         await axios
-            .put(`/api/user/valide-avertissement`, {id: idAvert[0].id})
+            .put(`/api/user/valide-avertissement`, { id: idAvert[0].id })
             .then((res) => {
                 if (res.status == 200) {
                     setShow(false);
@@ -43,7 +44,7 @@ function AlertAvertissement({show, setShow, content, title, idAvert}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">

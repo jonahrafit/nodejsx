@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         });
 
         if (retourEmail) {
-            res.status(200).json({ message: "Un email de confirmation a été envoyé avec succès.  ", success: true });
+            res.status(200).json({ message: "Un email de réinitialisation de mot passe a été envoyé avec succès.  ", success: true });
         } else {
             res.status(400).json({ message: "Email non envoyé", success: false });
         }

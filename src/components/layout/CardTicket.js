@@ -2,24 +2,24 @@ import React from "react";
 import axios from "axios";
 import config from "../../utils/config";
 
-import {useState} from "react";
+import { useState } from "react";
 
-import {useRouter} from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 
 function CardTicket({
-                        status,
-                        type_message,
-                        employe_respond,
-                        date,
-                        email,
-                        hashId,
-                    }) {
+    status,
+    type_message,
+    employe_respond,
+    date,
+    email,
+    hashId,
+}) {
     const router = useRouter();
     const [myTickets, setMyTickets] = useState([]);
 
     async function deleteTicket() {
         await axios
-            .post(`/api/ticket/deleteTicket`, {email: email, hashId})
+            .post(`/api/ticket/deleteTicket`, { email: email, hashId })
             .then((res) => {
                 if (res.status === 200) {
                     router.reload(window.location.pathname);
@@ -28,7 +28,7 @@ function CardTicket({
     }
 
     async function getTicket() {
-        await axios.post(`/api/ticket/findTicket`, {email}).then((res) => {
+        await axios.post(`/api/ticket/findTicket`, { email }).then((res) => {
         });
     }
 
@@ -38,10 +38,10 @@ function CardTicket({
                 <div className="col-lg-4">
                     {/* <div>ID:</div> */}
                     <div>
-            <span
-                className="px-4  py-1 rounded-full text-gray-500 bg-green-200 text-xs flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-              {status}
-            </span>
+                        <span
+                            className="px-4  py-1 rounded-full text-gray-500 bg-green-200 text-xs flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                            {status}
+                        </span>
                     </div>
                 </div>
                 <div className="col-lg-2">

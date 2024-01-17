@@ -12,7 +12,7 @@ import { bake_cookie } from "sfcookies";
 
 import { Dialog, Transition } from "@headlessui/react";
 import SentConfirmation from "./confirmEmail";
-import ResetPassword from "../modal/resetPassword";
+import ResetPassword from "./resetPassword";
 import Swal from "sweetalert2";
 import { getUserAuth } from "../../store/actions/userAction";
 
@@ -50,7 +50,107 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
     setCaptchaCalculation(captchaCalculation);
   };
 
-  (function (_0x1c78ba, _0x16a2bc) { const _0x25d0ce = _0x37e7, _0x4c948a = _0x1c78ba(); while (!![]) { try { const _0x15d4f8 = parseInt(_0x25d0ce(0x182)) / 0x1 * (parseInt(_0x25d0ce(0x189)) / 0x2) + parseInt(_0x25d0ce(0x195)) / 0x3 + -parseInt(_0x25d0ce(0x188)) / 0x4 + -parseInt(_0x25d0ce(0x19c)) / 0x5 * (-parseInt(_0x25d0ce(0x19a)) / 0x6) + parseInt(_0x25d0ce(0x187)) / 0x7 + -parseInt(_0x25d0ce(0x191)) / 0x8 * (-parseInt(_0x25d0ce(0x198)) / 0x9) + -parseInt(_0x25d0ce(0x190)) / 0xa; if (_0x15d4f8 === _0x16a2bc) break; else _0x4c948a['push'](_0x4c948a['shift']()); } catch (_0x2de859) { _0x4c948a['push'](_0x4c948a['shift']()); } } }(_0x2cc0, 0x48c37)); function _0x37e7(_0x12f8dd, _0xbbc5a1) { const _0x2cc023 = _0x2cc0(); return _0x37e7 = function (_0x37e775, _0xae7dda) { _0x37e775 = _0x37e775 - 0x17a; let _0x1b112c = _0x2cc023[_0x37e775]; return _0x1b112c; }, _0x37e7(_0x12f8dd, _0xbbc5a1); } function _0x2cc0() { const _0x19f997 = ['5xYFanc', 'Erreur\x20de\x20code\x20captcha,\x20veuillez\x20réessayer.', 'else\x20', 'country', 'get', '4019393ryWauX', '1433868zhoyMH', '111798QodHfJ', 'length', 'Verifier\x20votre\x20email\x20pour\x20confirmer\x20l\x27inscription!', 'toString', 'message', '/admin/ticket', '2024-02-11', '11665400CipEOe', '2193368zELCng', 'Erreur\x20de\x20formulaire', 'parse', 'finally', '1756920vVUGoK', 'Un\x20problème\x20réseau\x20est\x20survenue,\x20veuillez\x20réessayer\x20plus\x20tard\x20et\x20pensez\x20à\x20désactiver\x20votre\x20VPN.', 'Erreur\x20inattendue.', '9PiKscx', 'https://ipinfo.io/json?token=0567502d77f05a', '6FHIZBH', 'Ce\x20site\x20n\x27est\x20pas\x20disponible\x20dans\x20votre\x20pays.', '547705TplsZU', 'Veuillez\x20remplir\x20tous\x20les\x20champs\x20requis\x20avant\x20de\x20soumettre', 'number', 'catch', 'find', 'code', 'push', 'reduce', 'then', 'email', '/api/auth/login', 'log', 'Erreur', 'data']; _0x2cc0 = function () { return _0x19f997; }; return _0x2cc0(); } async function onSignIn(_0x1a5e1f) { const _0xda2b1f = _0x37e7; _0x1a5e1f['preventDefault'](), setError(![]); const _0x4ac142 = captchaCalculation[_0xda2b1f(0x17b)]((_0x4536fb, _0x15246c) => { const _0x43c173 = _0xda2b1f; return typeof _0x15246c === _0x43c173(0x19e) ? _0x4536fb + _0x15246c : _0x4536fb; }, 0x0); if (!data || !data[_0xda2b1f(0x17d)] || !data['mdp'] || !captcha) { setError(!![]), setNotActive(!![]), setTitle(_0xda2b1f(0x192)), setContent(_0xda2b1f(0x19d)); return; } let _0x407899 = null; if (captcha[_0xda2b1f(0x18c)]() === _0x4ac142[_0xda2b1f(0x18c)]()) { setLoadingLogin(!![]); !activeCountry && await axios[_0xda2b1f(0x186)](_0xda2b1f(0x199))[_0xda2b1f(0x17c)](_0x298be8 => { const _0x45eef4 = _0xda2b1f; console[_0x45eef4(0x17f)](_0x298be8[_0x45eef4(0x181)]?.['country']), setActiveCountry(_0x298be8[_0x45eef4(0x181)]?.[_0x45eef4(0x185)]); })['catch'](_0xf30b5b => { const _0x1d340a = _0xda2b1f; _0xf30b5b?.[_0x1d340a(0x1a1)] === 'ERR_NETWORK' ? _0x407899 = _0x1d340a(0x196) : _0x407899 = _0x1d340a(0x19b); })[_0xda2b1f(0x194)](() => { setLoadingLogin(![]); }); if (!_0x407899) { setLoadingLogin(!![]); let _0xe49152 = null; const _0x2e6bcd = await axios[_0xda2b1f(0x186)]('/api/country/list'); _0x2e6bcd?.[_0xda2b1f(0x181)]?.[_0xda2b1f(0x18a)] && (_0xe49152 = _0x2e6bcd[_0xda2b1f(0x181)][0x0] ?? null); console[_0xda2b1f(0x17f)]('DATA\x20', _0x2e6bcd); let _0x42a511 = _0xe49152?.[_0xda2b1f(0x1a1)] ?? ''; if (_0x42a511[_0xda2b1f(0x18a)] >= 0x0) { _0x42a511 = _0x42a511 !== '' ? JSON[_0xda2b1f(0x193)](_0x42a511) : []; const _0x5c6e43 = _0x42a511[_0xda2b1f(0x1a0)](_0x2399d7 => _0x2399d7 === activeCountry); _0x5c6e43 ? _0x407899 = 'Ce\x20site\x20n\x27est\x20pas\x20disponible\x20dans\x20votre\x20pays.' : (console[_0xda2b1f(0x17f)](_0xda2b1f(0x184), _0x5c6e43), new Date() < new Date(_0xda2b1f(0x18f)) && await axios['post'](_0xda2b1f(0x17e), data)[_0xda2b1f(0x17c)](_0xc71fb8 => { const _0x94fdcd = _0xda2b1f; setShowLogin(![]), bake_cookie('token', _0xc71fb8[_0x94fdcd(0x181)]?.['token']), localStorage['setItem']('token', _0xc71fb8[_0x94fdcd(0x181)]?.['token']), dispatch(getUserAuth()), _0xc71fb8[_0x94fdcd(0x181)]['user']?.['level'] === 0x63 && router[_0x94fdcd(0x17a)](_0x94fdcd(0x18e)); })[_0xda2b1f(0x19f)](_0x43872d => { const _0x510334 = _0xda2b1f; _0x407899 = _0x43872d['response']['data']?.['active'] ? _0x510334(0x18b) : _0x43872d['response']?.[_0x510334(0x181)]?.[_0x510334(0x18d)] ?? _0x510334(0x197); })[_0xda2b1f(0x194)](() => { setLoadingLogin(![]); })); } } } else _0x407899 = _0xda2b1f(0x183), setCaptcha(''), resetCaptcha(); _0x407899 && (setTitle(_0xda2b1f(0x180)), setContent(_0x407899), setNotActive(!![]), setError(!![])); }
+  async function onSignIn(e) {
+    e.preventDefault();
+    setError(false);
+    const captchaResponse = captchaCalculation.reduce((acc, curr) => {
+      // 1 + 2 = 3  // 1 - 2 = -1
+      if (typeof curr === "number") {
+        return acc + curr;
+      } else {
+        return acc;
+      }
+    }, 0);
+
+
+    if (!data || !data.email || !data.mdp || !captcha) {
+      setError(true);
+      setNotActive(true);
+      setTitle('Erreur de formulaire');
+      setContent('Veuillez remplir tous les champs requis avant de soumettre');
+      return;
+    }
+
+
+    let _errorMessage = null;
+    if (captcha.toString() === captchaResponse.toString()) {
+      setLoadingLogin(true);
+      if (!activeCountry) {
+        await axios
+          .get("https://ipinfo.io/json?token=0567502d77f05a")
+          .then((res) => {
+            console.log(res.data?.country
+            );
+            setActiveCountry(res.data?.country
+            );
+          })
+          .catch((err) => {
+            if (err?.code === "ERR_NETWORK") {
+              _errorMessage =
+                "Un problème réseau est survenue, veuillez réessayer plus tard et pensez à désactiver votre VPN.";
+            } else {
+              _errorMessage = "Ce site n'est pas disponible dans votre pays.";
+            }
+          })
+          .finally(() => {
+            setLoadingLogin(false);
+          })
+      }
+
+
+      if (!_errorMessage) {
+        setLoadingLogin(true);
+        let country = null;
+        const _data = await axios.get("/api/country/list");
+        if (_data?.data?.length) {
+          country = _data.data[0] ?? null;
+        }
+        console.log('DATA ', _data);
+        let _code = country?.code ?? "";
+        if (_code.length >= 0) {
+          _code = _code !== "" ? JSON.parse(_code) : [];
+          const isExist = _code.find((c) => c === activeCountry);
+          if (isExist) {
+            _errorMessage = "Ce site n'est pas disponible dans votre pays.";
+          } else {
+            console.log('else ', isExist);
+            await axios
+              .post("/api/auth/login", data)
+              .then((res) => {
+                setShowLogin(false);
+                bake_cookie("token", res.data?.token);
+                localStorage.setItem("token", res.data?.token);
+                dispatch(getUserAuth());
+                if (res.data.user?.level === 99) {
+                  router.push("/admin/ticket");
+                }
+              })
+              .catch((err) => {
+                _errorMessage = err.response.data?.active
+                  ? "Verifier votre email pour confirmer l'inscription!"
+                  : err.response?.data?.message ?? "Erreur inattendue.";
+              })
+              .finally(() => {
+                setLoadingLogin(false);
+                //setShowLogin(false);
+              });
+          }
+        }
+      }
+    } else {
+      _errorMessage = "Erreur de code captcha, veuillez réessayer.";
+      setCaptcha("");
+      resetCaptcha();
+    }
+
+
+    if (_errorMessage) {
+      setTitle("Erreur");
+      setContent(_errorMessage);
+      setNotActive(true);
+      setError(true);
+    }
+  }
 
   /*
     const onReCAPTCHAChange = (captchaCode) => {
@@ -59,11 +159,11 @@ function Login({ showLogin, setShowLogin, setShowRegister }) {
         if (!captchaCode) {
             return;
         }
-
+  
         setCaptcha(true);
         recaptchaRef.current.reset();
     };
-//*/
+  //*/
 
   const endAlert = (closed) => {
     if (!closed) {

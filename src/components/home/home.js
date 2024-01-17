@@ -43,7 +43,7 @@ function Home() {
               </div> */}
             <div className="grid grid-cols-12 gap-y-5 ">
               <div className="col-span-12">
-                <div className="pt-8 sm:pt-10 lg:pt-16">
+                <div className="pt-4 sm:pt-10 lg:pt-16">
                   <div className="flex flex-col items-center space-y-3 md:space-y-4 lg:space-y-5">
                     <div className="text-center">
                       <span className="text-4xl sm:text-5xl text-blue-900 font-bold">

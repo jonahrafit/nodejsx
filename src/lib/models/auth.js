@@ -73,6 +73,18 @@ export async function findUser({email}) {
     }
 }
 
+export async function findUserByIp({ip}) {
+    try {
+        console.log('FIND USER BY IP');
+        return await executeQuery({
+            query: 'SELECT * FROM users WHERE ip = ?',
+            values: [ip],
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function findAll() {
     try {
         return await executeQuery({

@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import {Fragment, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
-import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
 import {deleteCoupon, getAllCoupon} from "../../store/actions/couponAction";
 import {useDispatch} from "react-redux";
 

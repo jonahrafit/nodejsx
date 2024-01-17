@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 import PageTitle from "./PageTitle";
-// import React, {useEffect, useRef, useState} from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import Side from "../home/side";
@@ -49,6 +48,7 @@ function Layout({ children, pageTitle, subTitle }) {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const isMounted = useRef(true);
+  const [showAlertActiveAddBlock, setShowAlertActiveAddBlock] = useState(false);
 
   useEffect(() => {
     // Fetch data when the component mounts
@@ -68,6 +68,7 @@ function Layout({ children, pageTitle, subTitle }) {
 
           if (adBlockDetected) {
             setActiveAddBlock(adBlockDetected);
+            setShowAlertActiveAddBlock(true);
           }
 
           getTicket().then();
@@ -83,18 +84,24 @@ function Layout({ children, pageTitle, subTitle }) {
   const handleClick = () => {
     setCount((state) => state + 1);
   };
-  // useEffect(() => {
-  //   checkAvertissement(auth.user?.id);
-  // }, [auth]);
-  // useEffect(() => {
-  //   socketInitializer();
-  // }, []);
 
-  // useEffect(() => {
-  //   if (adBlockDetected) setActiveAddBlock(adBlockDetected);
-  //   getTicket();
-  //   auth.user?.banni == 1 && setActiveBanni(auth.user?.banni);
-  // }, [count]);
+  useEffect(() => {
+    checkAvertissement(auth.user?.id);
+  }, [auth]);
+
+  useEffect(() => {
+    socketInitializer();
+  }, []);
+
+  useEffect(() => {
+    console.log('ADD BLOACK', adBlockDetected);
+    if (adBlockDetected) {
+      setShowAlertActiveAddBlock(true);
+      setActiveAddBlock(adBlockDetected);
+    }
+    getTicket();
+    auth.user?.banni == 1 && setActiveBanni(auth.user?.banni);
+  }, [count]);
 
   function checkAvertissement(id) {
     axios
@@ -168,7 +175,7 @@ function Layout({ children, pageTitle, subTitle }) {
       setIsUrl(true);
     } else {
       console.log("messages[messages.length - 1]");
-      console.log(messages[messages.length - 1]);
+      console.log(messages);
       if (
         messages.length > 0 &&
         messages[messages.length - 1].hashId === auth.user.hashId
@@ -218,7 +225,7 @@ function Layout({ children, pageTitle, subTitle }) {
           <Side>
             <PageTitle
               pageTitle={pageTitle}
-              // subTitle={subTitle}
+            // subTitle={subTitle}
             />
             {children}
           </Side>
@@ -282,8 +289,8 @@ function Layout({ children, pageTitle, subTitle }) {
         {activeAddBlock && (
           <AlertActiveAddBlock
             content={"Veuillez désactiver votre AdBlock!"}
-            setShow={() => console.log("Désactivez le bloqueur de Pub")}
-            show={true}
+            setShow={setShowAlertActiveAddBlock}
+            show={showAlertActiveAddBlock}
             title={"AdBlock detecté"}
           />
         )}

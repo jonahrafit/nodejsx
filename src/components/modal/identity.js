@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuth } from '../../store/actions/userAction';
 import axios from 'axios';
 import uploadFile from '../../utils/uploadService';
-import IdentityPendingModal from './identityPending';
 
 function IdentityModal({ show, setShow, setPending }) {
     const cancelButtonRef = useRef(null);

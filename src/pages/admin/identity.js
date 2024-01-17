@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import LayoutAdmin from '../../components/layout/LayoutAdmin';
 import IdentityModalDetails from '../../components/modal/identityDetails';
 
@@ -56,80 +56,80 @@ export default function IdentityAdmin() {
                                         <div className="bg-white shadow-md rounded ">
                                             <table className="min-w-max w-full max-h-screen table-auto">
                                                 <thead>
-                                                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                                    <th className="py-3 px-2 text-left">Email</th>
-                                                    <th className="py-3 px-2 text-center">Nom et Prenom</th>
-                                                    <th className="py-3 px-2 text-center">Status</th>
-                                                    <th className="py-3 px-2 text-center">Actions</th>
-                                                </tr>
+                                                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                                        <th className="py-3 px-2 text-left">Email</th>
+                                                        <th className="py-3 px-2 text-center">Nom et Prenom</th>
+                                                        <th className="py-3 px-2 text-center">Status</th>
+                                                        <th className="py-3 px-2 text-center">Actions</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody className="text-gray-600 text-sm font-light">
-                                                {allVerification &&
-                                                    allVerification.map((usr) => (
-                                                        <tr
-                                                            className={
-                                                                'border-b border-gray-200 bg-gray-50 hover:bg-gray-100'
-                                                            }
-                                                        >
-                                                            <td className="py-3 px-2 text-left">
-                                                                <div className="flex items-center cursor-pointer">
-                                                                    <div className="mr-2"></div>
-                                                                    <span className="font-medium">{usr.email}</span>
-                                                                </div>
-                                                            </td>
-                                                            <td className="py-3 px-2 text-center">
-                                                                <div className="flex items-center justify-center">
-                                                                    {usr.nom + ' ' + usr.prenom}
-                                                                </div>
-                                                            </td>
-                                                            <td className="py-3 px-2 text-center">
-                                                                {usr.status === 'PENDING' ? (
-                                                                    <span
-                                                                        className="px-2 py-1 text-white font-bold bg-yellow-400 rounded">
-                                      EN ATTENTE
-                                    </span>
-                                                                ) : usr.status === 'ACCEPTED' ? (
-                                                                    <span
-                                                                        className="px-2 py-1 text-white font-bold bg-green-400 rounded">
-                                      ACCEPTE
-                                    </span>
-                                                                ) : (
-                                                                    <span
-                                                                        className="px-2 py-1 text-white font-bold bg-red-400 rounded">
-                                      REFUSE
-                                    </span>
-                                                                )}
-                                                            </td>
-                                                            <td className="py-3 px-2 text-center">
-                                                                <button
-                                                                    onClick={() => {
-                                                                        setCurrent(usr);
-                                                                        setDetails(true);
-                                                                    }}
-                                                                    className="py-2 px-4 text-sm font-medium text-white bg-indigo-500 ml-2 hover:bg-indigo-400 rounded-md"
-                                                                >
-                                                                    Voir
-                                                                </button>
-                                                                <button
-                                                                    onClick={() =>
-                                                                        acceptVerification(usr.hashId)
-                                                                    }
-                                                                    className="py-2 px-4 text-sm font-medium text-white ml-2 bg-[#00d7b3] hover:bg-[#01be9f] rounded-md"
-                                                                >
-                                                                    Accepter
-                                                                </button>
+                                                    {allVerification &&
+                                                        allVerification.map((usr) => (
+                                                            <tr
+                                                                className={
+                                                                    'border-b border-gray-200 bg-gray-50 hover:bg-gray-100'
+                                                                }
+                                                            >
+                                                                <td className="py-3 px-2 text-left">
+                                                                    <div className="flex items-center cursor-pointer">
+                                                                        <div className="mr-2"></div>
+                                                                        <span className="font-medium">{usr.email}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-3 px-2 text-center">
+                                                                    <div className="flex items-center justify-center">
+                                                                        {usr.nom + ' ' + usr.prenom}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-3 px-2 text-center">
+                                                                    {usr.status === 'PENDING' ? (
+                                                                        <span
+                                                                            className="px-2 py-1 text-white font-bold bg-yellow-400 rounded">
+                                                                            EN ATTENTE
+                                                                        </span>
+                                                                    ) : usr.status === 'ACCEPTED' ? (
+                                                                        <span
+                                                                            className="px-2 py-1 text-white font-bold bg-green-400 rounded">
+                                                                            ACCEPTE
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span
+                                                                            className="px-2 py-1 text-white font-bold bg-red-400 rounded">
+                                                                            REFUSE
+                                                                        </span>
+                                                                    )}
+                                                                </td>
+                                                                <td className="py-3 px-2 text-center">
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            setCurrent(usr);
+                                                                            setDetails(true);
+                                                                        }}
+                                                                        className="py-2 px-4 text-sm font-medium text-white bg-indigo-500 ml-2 hover:bg-indigo-400 rounded-md"
+                                                                    >
+                                                                        Voir
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            acceptVerification(usr.hashId)
+                                                                        }
+                                                                        className="py-2 px-4 text-sm font-medium text-white ml-2 bg-[#00d7b3] hover:bg-[#01be9f] rounded-md"
+                                                                    >
+                                                                        Accepter
+                                                                    </button>
 
-                                                                <button
-                                                                    onClick={() =>
-                                                                        rejectVerification(usr.hashId)
-                                                                    }
-                                                                    className="py-2 px-4 text-sm font-medium text-white bg-red-500 ml-2 hover:bg-red-400 rounded-md"
-                                                                >
-                                                                    Refuser
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            rejectVerification(usr.hashId)
+                                                                        }
+                                                                        className="py-2 px-4 text-sm font-medium text-white bg-red-500 ml-2 hover:bg-red-400 rounded-md"
+                                                                    >
+                                                                        Refuser
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
                                                 </tbody>
                                             </table>
                                         </div>

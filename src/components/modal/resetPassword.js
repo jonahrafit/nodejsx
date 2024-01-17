@@ -28,7 +28,7 @@ function ResetPassword({ setShowResetPass, showResetPass }) {
                 if (res.data.success) {
                     setEmail('');
                     setNotActive(true);
-                    setTitle('Confirmation');
+                    setTitle('Réinitialisation');
                     setContent(res.data.message ?? 'Message envoyé.');
                     // setShowMessage(true);
                     // setMessage(res.data.message);

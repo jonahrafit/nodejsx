@@ -2,7 +2,7 @@
 const confirmationAccountTemplate = (data) => {
   const { email, nom, prenom, url, hashId } = data;
   console.log('URL ', url);
-  console.log('LIEN', `"${url}/confirmation/${hashId}`)
+  console.log('LIEN', `"${url}confirmation/${hashId}`)
   return `
   <!DOCTYPE html>
 <html>

@@ -23,6 +23,13 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
     mdp: '',
     parrain: '',
   });
+  const [user_free] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    mdp: '',
+    parrain: '',
+  });
   const [captcha, setCaptcha] = useState('');
   const [captchaCalculation, setCaptchaCalculation] = useState([]);
 
@@ -41,7 +48,6 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
   async function signup(e) {
     e.preventDefault();
     setFormLoading(true);
-    console.log('eto');
     const captchaResponse = captchaCalculation.reduce((acc, curr) => {
       //   // 1 + 2 = 3  // 1 - 2 = -1
       if (typeof curr === 'number') {
@@ -116,51 +122,36 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
                 }),
               });
 
-              if (response.ok) {
+              if(response.ok) {
                 setTitle('Inscription réussie.');
                 setContent(
                   'Veuillez consulter votre email pour confirmer votre inscription!'
                 );
-                // Swal.fire({
-                //   icon: 'success',
-                //   title: 'Inscription réussi!',
-                //   text: 'Veuillez consulter votre email pour confirmer votre inscription!',
-                // });
                 setShowRegister(false);
-                setNotActive(true);
+                setUser(user_free);
               } else {
                 const data = await response.json();
-                // Swal.fire({
-                //   icon: 'error',
-                //   title: 'Erreur',
-                //   text: data.message ?
-                //     'Cette adresse e-mail existe déjà. Veuillez en choisir une autre'
-                //     : 'Erreur inattendue',
-                // });
                 setError(true);
-                setNotActive(true);
                 setTitle('Erreur');
                 setContent(data.message ?? 'Erreur inattendue.');
               }
             })
             .catch((err) => {
               console.error(err);
-              Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Erreur inattendue, Veuillez réessayer plus tard',
-              });
+              setError(true);
+              setTitle('Erreur');
+              setContent('Erreur inattendue, Veuillez réessayer plus tard');
             })
             .finally(() => {
               setFormLoading(false);
+              setNotActive(true);
             })
         }
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Erreur inattendue, Veuillez réessayer plus tard',
-        });
+        setError(true);
+        setNotActive(true);
+        setTitle('Erreur');
+        setContent('Erreur inattendue, Veuillez réessayer plus tard')
         setFormLoading(false);
       }
     } else {
@@ -556,6 +547,7 @@ function Register({ showRegister, setShowRegister, setShowLogin }) {
                                 </div>
                               </div>
                             </div>
+                            <br />
                             <div>
                               <button
                                 type="submit"

@@ -36,7 +36,7 @@ function ChartData({ name, dataMission }) {
         oups = dataMission?.pending;
         color = "#22C55E";
     }
-    if (name == "Nombre de commande") {
+    if (name == "Mes commandes") {
         oups = dataMission?.commande;
         color = "#F6B81D";
     }

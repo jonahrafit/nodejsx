@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { generatePageNumbers } from "../../utils/pagination";
 
 function CommandHistory() {
   const dispatch = useDispatch();
@@ -8,6 +9,7 @@ function CommandHistory() {
 
   const [valuePage, setValuePage] = useState({ start: 0, end: 8 });
   const auth = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (auth.user) {
       axios
@@ -16,9 +18,14 @@ function CommandHistory() {
         })
         .then((res) => {
           setData(res.data);
+          console.log('DATA COMMANDE', res.data);
         });
     }
   }, [dispatch, auth]);
+
+  const pageSize = 7; // Nombre d'éléments par page
+  const totalPages = Math.ceil(data.length / pageSize);
+  const currentPage = valuePage.start / pageSize + 1;
 
   return (
     <>
@@ -27,6 +34,7 @@ function CommandHistory() {
           <table className="min-w-max w-full max-h-screen table-auto">
             <thead>
               <tr className=" text-gray-600 border-b-2 border-yellow-500 text-sm leading-normal">
+                <th className="py-3 px-6 text-left">Date</th>
                 <th className="py-3 px-6 text-left">Boutique</th>
                 <th className="py-3 px-6 text-left">Catégorie</th>
                 <th className="py-3 px-6 text-left">Montant</th>
@@ -42,6 +50,13 @@ function CommandHistory() {
                     key={i}
                     className="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                   >
+                    <td className="py-3 px-6 text-left">
+                      <div className="flex items-center cursor-pointer max-w-[200px]">
+                        <span className="font-medium hover:text-yellow-500">
+                          {command.date}
+                        </span>
+                      </div>
+                    </td>
                     <td className="py-3 px-6 text-left">
                       <div className="flex items-center cursor-pointer max-w-[200px]">
                         <span className="font-medium hover:text-yellow-500">
@@ -89,34 +104,28 @@ function CommandHistory() {
                 ))}
             </tbody>
           </table>
+        <p>On trouve ({data.length}) résultat(s)</p>
         </div>
       </div>
-      <div className="mt-4">
-        <button
-          onClick={() => {
-            setValuePage({
-              start: valuePage.start - 8,
-              end: valuePage.end - 8,
-            });
-          }}
-          disabled={valuePage.start === 0 ? true : false}
-          className="mr-2 text-white text-sm font-extrabold rounded btn btn-primary "
-        >
-          Précédent
-        </button>
-
-        <button
-          onClick={() => {
-            setValuePage({
-              start: valuePage.start + 8,
-              end: valuePage.end + 8,
-            });
-          }}
-          className="px-4 text-white text-sm font-extrabold rounded btn btn-primary "
-          disabled={valuePage.end >= data?.length ? true : false}
-        >
-          Suivant
-        </button>
+      <div className="mt-4 flex justify-center">
+        <ul className="flex space-x-2 items-center">
+          {generatePageNumbers(totalPages).map((pageNumber) => (
+            <li key={pageNumber}>
+              <button
+                onClick={() => {
+                  setValuePage({
+                    start: (pageNumber - 1) * pageSize,
+                    end: pageNumber * pageSize,
+                });
+                }}
+                className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
+                  }`}
+              >
+                {pageNumber}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

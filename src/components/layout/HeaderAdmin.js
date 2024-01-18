@@ -7,7 +7,7 @@ import Login from '../modal/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuth, logoutUser } from '../../store/actions/userAction';
 import { useRouter } from 'next/dist/client/router';
-
+import HeaderTooltip from './headerTooltip';
 function HeaderAdmin() {
     const [openClass, setOpenClass] = useState(false);
     const [show, setShow] = useState(false);

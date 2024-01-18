@@ -1,6 +1,5 @@
-import React, { createRef, useEffect } from "react";
+import React, { createRef, useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useState } from "react";
 import useClickOutside from "../../utils/outsideClick";
 import Register from "../modal/register";
 import Login from "../modal/login";
@@ -11,9 +10,10 @@ import { getPendingAmount } from "../../store/actions/validation";
 import axios from "axios";
 import HistoTooltip from "./histoTooltip";
 import Swal from "sweetalert2";
-
+import { createPopper } from "@popperjs/core";
 function Header() {
     const [openClass, setOpenClass] = useState(false);
+    const [openClassTooltip, setOpenClassTooltip] = useState(false);
     const [show, setShow] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
@@ -28,7 +28,17 @@ function Header() {
         commande: 0,
     });
     // const [isGreet, setIsGreet] = useState(null);
-    // console.log(auth.user.euros);
+    const [tooltipShow, setTooltipShow] = useState(false);
+    const tooltipRef = useRef();
+
+    useEffect(() => {
+        if (tooltipShow) {
+            createPopper(tooltipRef.current, tooltipRef.current, {
+                placement: "top",
+            });
+        }
+    }, [tooltipShow]);
+
     useEffect(() => {
 
         // Perform logic that requires access to the Redux store
@@ -43,6 +53,7 @@ function Header() {
                 }
             } catch (error) {
                 // Handle errors
+                throw error;
             }
         };
 
@@ -64,6 +75,7 @@ function Header() {
     // useEffect(() => {
 
     const handleOpen = () => setOpenClass(!openClass);
+    const handleOpenTooltipGain = () => setOpenClassTooltip(!openClassTooltip);
     const handleShow = () => setShow(!show);
 
     // let domNode = useClickOutside(() => {
@@ -90,6 +102,7 @@ function Header() {
     function getAllPending() {
         axios.get("/api/validation/all-pending").then((res) => {
             setAllPending(res.data?.request);
+            console.log('GET ALL PENDING', res.data);
         });
     }
 
@@ -109,6 +122,7 @@ function Header() {
                 <div className="container px-5 mx-auto">
                     <nav className="flex items-center h-16">
                         <div>
+                            {/* LOGO */}
                             <Link href="/">
                                 <a className="flex flex-row items-center group focus:outline-none h-10">
                                     <span
@@ -269,13 +283,13 @@ function Header() {
                                 )}
                                 {auth.isAuth && (
                                     <div className="flex flex-row space-x-2 ">
+                                        {/* 2 Bouton lien Acceuil et boutique*/}
                                         <div className="flex items-center space-x-2 shrink-0">
                                             <div className="flex items-center bg-indigo-100 rounded-full pl-3 pr-3 h-10 cursor-pointer">
                                                 <Link href="/">
                                                     <a className="flex items-center justify-center font-semibold text-center w-full h-full">
                                                         Acceuil
                                                     </a>
-
                                                 </Link>
                                             </div>
                                         </div>
@@ -288,23 +302,16 @@ function Header() {
                                                 </Link>
                                             </div>
                                         </div>
+
+                                        {/* MAKE TOOLTIP */}
                                         <div className="flex items-center space-x-2 shrink-0">
-                                            <div>
-                                                <div className="flex items-center bg-indigo-100 rounded-full pl-3 pr-1 h-10 cursor-pointer">
+                                            <div >
+                                                <div className="relative flex items-center bg-indigo-100 rounded-full pl-3 pr-1 h-10 cursor-pointer"
+                                                    onClick={handleOpenTooltipGain}
+                                                    onMouseEnter={() => setOpenClassTooltip(true)}
+                                                    onMouseLeave={() => setOpenClassTooltip(false)}
+                                                >
                                                     <div className="flex items-center">
-                                                        {/* <div>
-                            {total.gain > 0 ? (
-                              <span className="font-semibold d-flex items-center">
-                                {total.gain?.toFixed(2)}{" "}
-                                <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
-                              </span>
-                            ) : (
-                              <span className="font-semibold d-flex items-center">
-                                0
-                                <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
-                              </span>
-                            )}
-                          </div> */}
                                                         <div>
                                                             {auth && auth?.user?.euros > 0 ? (
                                                                 <span className="font-semibold d-flex items-center">
@@ -330,8 +337,25 @@ function Header() {
                                                             </span>
                                                         )}
                                                     </div>
+                                                    {openClassTooltip && (
+                                                        <div className="absolute top-12 right-0 z-0">
+                                                            <div className="absolute right-40 lg:right-4 w-3 h-3 bg-white rotate-45 -translate-y-1/2 -translate-x-1/2 border-t border-l"></div>
+                                                            <div className="w-[180px] bg-white border rounded-md shadow">
+                                                                <div className="text-center">
+                                                                    <div>Gain en attente</div>
+                                                                    <div>
+                                                                        {auth && auth?.user?.euros > 0 ?
+                                                                            auth?.user?.euros : 0}{" "}
+                                                                        <i className="fas fa-euro-sign text-yellow-500 ml-2"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
+
+                                            {/* profile */}
                                             <div>
                                                 <div
                                                     className="relative flex items-center bg-gray-200 rounded-full px-1 h-10">
@@ -510,6 +534,8 @@ function Header() {
                                         </div>
                                     </div>
                                 )}
+
+                                {/* CONNEXION ET INSCRIPTION */}
                                 {!auth.isAuth && (
                                     <div>
                                         <div className="flex items-center space-x-2 sm:space-x-4">
@@ -538,15 +564,17 @@ function Header() {
                                         </div>
                                     </div>
                                 )}
+
                             </div>
                         </div>
                     </nav>
+
+                    {/* Historique pending */}
                     <div className="flex items-center h-16">
                         <div className="overflow-y-hidden overflow-x-auto no-scrollbar pb-3 px-1 -mx-4">
                             <div className="flex items-center flex-row-reverse space-x-reverse space-x-2 w-max">
                                 {Array.isArray(allPending) && allPending.map((e, i) => {
                                     return (
-
                                         <div key={i}>
                                             <HistoTooltip data={e} />
                                         </div>
@@ -556,9 +584,10 @@ function Header() {
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </div >
                 <div className="flex items-center h-2 bg-yellow-500 w-full" />
-            </header>
+            </header >
             <Register
                 showRegister={showRegister}
                 setShowRegister={setShowRegister}

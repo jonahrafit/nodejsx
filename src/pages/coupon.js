@@ -97,7 +97,7 @@ function Blank() {
                                     </div>
                                 ))}
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4 flex justify-center">
                             <ul className="flex space-x-2">
                                 {generatePageNumbers(totalPages).map((pageNumber) => (
                                     <li key={pageNumber}>

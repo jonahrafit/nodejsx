@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { converDateAndHours } from "../../utils/converDateAndHours";
 import { getValidationByUser } from "../../store/actions/validation";
+import { generatePageNumbers } from "../../utils/pagination";
 
 function OfferHistory() {
   const dispatch = useDispatch();
@@ -35,6 +35,11 @@ function OfferHistory() {
   //     );
   //   }
   // }
+
+  const pageSize = 7; // Nombre d'éléments par page
+  const totalPages = Math.ceil(data.length / pageSize);
+  const currentPage = valuePage.start / pageSize + 1;
+
   return (
     <>
       <div className="w-full overflow-x-auto">
@@ -117,35 +122,31 @@ function OfferHistory() {
                   })}
             </tbody>
           </table>
+        <p>On trouve ({data.length}) résultat(s)</p>
         </div>
       </div>
-      <div className="mt-4">
-        <button
-          onClick={() => {
-            setValuePage({
-              start: valuePage.start - 8,
-              end: valuePage.end - 8,
-            });
-          }}
-          disabled={valuePage.start === 0 ? true : false}
-          className="mr-2 text-white text-sm font-extrabold rounded btn btn-primary "
-        >
-          Précédent
-        </button>
 
-        <button
-          onClick={() => {
-            setValuePage({
-              start: valuePage.start + 8,
-              end: valuePage.end + 8,
-            });
-          }}
-          className="px-4 text-white text-sm font-extrabold rounded btn btn-primary "
-          disabled={valuePage.end >= data?.length ? true : false}
-        >
-          Suivant
-        </button>
+      <div className="mt-4 flex justify-center">
+        <ul className="flex space-x-2 items-center">
+          {generatePageNumbers(totalPages).map((pageNumber) => (
+            <li key={pageNumber}>
+              <button
+                onClick={() => {
+                  setValuePage({
+                    start: (pageNumber - 1) * pageSize,
+                    end: pageNumber * pageSize,
+                });
+                }}
+                className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
+                  }`}
+              >
+                {pageNumber}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
+
     </>
   );
 }

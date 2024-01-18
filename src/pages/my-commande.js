@@ -65,30 +65,36 @@ function Blank() {
           <div className="">
             <div className="row">
               <div className="col-xl-12">
-                <div className="revenue_universe card">
-                  {" "}
-                  <div className="card-header">
-                    <div className="option-btn">
-                      <div className="dropdown">
-                        <button
-                          onClick={() => changeState()}
-                          className="btn btn-option px-2 py-1"
-                          data-bs-toggle="dropdown"
-                        >
-                          {state === "UP" ? "Plus petit" : "Plus grand"}
-                          <span>
-                            <i
-                              className={
-                                "la la-angle-" +
-                                (state === "UP" ? "up" : "down")
-                              }
-                            ></i>
-                          </span>
-                        </button>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-xl-12 d-flex justify-content-end">
+                      <div className="revenue_universe card">
+                        <div className="card-header">
+                          <div className="option-btn">
+                            <div className="dropdown">
+                              <button
+                                onClick={() => changeState()}
+                                className="btn btn-option px-2 py-1"
+                                data-bs-toggle="dropdown"
+                              >
+                                {state === "UP" ? "Croissant" : "Décroissant"}
+                                <span>
+                                  <i
+                                    className={
+                                      "la la-angle-" + (state === "UP" ? "up" : "down")
+                                    }
+                                    title="Tri par date"
+                                  ></i>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div className="card-body">{view()}</div>
               </div>
             </div>

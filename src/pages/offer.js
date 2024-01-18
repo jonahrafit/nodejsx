@@ -19,6 +19,7 @@ function Blank() {
   // console.log(validations);
   useEffect(() => {
     setData(validations);
+    console.log('VALIDATION OFFEER' , data);
   }, [validations]);
 
   function changeState() {
@@ -26,14 +27,14 @@ function Blank() {
       setState("DOWN");
       setData(
         data.sort(
-          (a, b) => parseFloat(a.remuneration) - parseFloat(b.remuneration)
+          (a, b) => parseFloat(a.remunerationH) - parseFloat(b.remunerationH)
         )
       );
     } else {
       setState("UP");
       setData(
         data.sort(
-          (a, b) => parseFloat(a.remuneration) + parseFloat(b.remuneration)
+          (a, b) => parseFloat(a.remunerationH) + parseFloat(b.remunerationH)
         )
       );
     }
@@ -87,27 +88,31 @@ function Blank() {
                 </div>
               </div> */}
               <div className="col-xl-12">
-                <div className="revenue_universe card">
-                  {" "}
-                  <div className="card-header">
-                    {/* <h4 className="card-title"> {title}</h4> */}
-                    <div className="option-btn">
-                      <div className="dropdown">
-                        <button
-                          onClick={() => changeState()}
-                          className="btn btn-option px-2 py-1"
-                          data-bs-toggle="dropdown"
-                        >
-                          {state === "UP" ? "Plus petit" : "Plus grand"}
-                          <span>
-                            <i
-                              className={
-                                "la la-angle-" +
-                                (state === "UP" ? "up" : "down")
-                              }
-                            ></i>
-                          </span>
-                        </button>
+                <div className="row">
+                  <div className="col-xl-12 d-flex justify-content-end">
+                    <div className="revenue_universe card">
+                      {" "}
+                      <div className="card-header">
+                        {/* <h4 className="card-title"> {title}</h4> */}
+                        <div className="option-btn">
+                          <div className="dropdown">
+                            <button
+                              onClick={() => changeState()}
+                              className="btn btn-option px-2 py-1"
+                              data-bs-toggle="dropdown"
+                            >
+                              {state === "UP" ? "Croissant" : "Décroissant"}
+                              <span>
+                                <i
+                                  className={
+                                    "la la-angle-" +
+                                    (state === "UP" ? "up" : "down")
+                                  }
+                                ></i>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -118,7 +123,6 @@ function Blank() {
           </div>
         </div>
       </Layout>
-
       {/* <div className="revenue_universe card">
                   <div className="card-header">
                     <h4 className="card-title">Revenue Universe</h4>

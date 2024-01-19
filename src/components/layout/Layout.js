@@ -25,7 +25,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 let socket;
 
-function Layout({ children, pageTitle, subTitle }) {
+function Layout({
+  children,
+  pageTitle,
+  subTitle,
+  show_button_order,
+  handlechangeOrder,
+  orderOfData
+}) {
   const [isChat, setIsChat] = useState(false);
   const [isUrl, setIsUrl] = useState(false);
   const [isSpam, setIsSpam] = useState(false);
@@ -94,7 +101,6 @@ function Layout({ children, pageTitle, subTitle }) {
   }, []);
 
   useEffect(() => {
-    console.log('ADD BLOACK', adBlockDetected);
     if (adBlockDetected) {
       setShowAlertActiveAddBlock(true);
       setActiveAddBlock(adBlockDetected);
@@ -225,6 +231,9 @@ function Layout({ children, pageTitle, subTitle }) {
           <Side>
             <PageTitle
               pageTitle={pageTitle}
+              show_button_order={show_button_order}
+              handlechangeOrder={handlechangeOrder}
+              orderOfData={orderOfData}
             // subTitle={subTitle}
             />
             {children}

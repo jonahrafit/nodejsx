@@ -2,28 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { generatePageNumbers } from "../../utils/pagination";
+import { convertDateString } from "../../utils/converDate";
 
-function CommandHistory() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState([]);
-
+function CommandHistory({ data }) {
   const [valuePage, setValuePage] = useState({ start: 0, end: 8 });
-  const auth = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (auth.user) {
-      axios
-        .post("/api/command/user", {
-          userID: auth.user.hashId,
-        })
-        .then((res) => {
-          setData(res.data);
-          console.log('DATA COMMANDE', res.data);
-        });
-    }
-  }, [dispatch, auth]);
-
-  const pageSize = 7; // Nombre d'éléments par page
+  const pageSize = 7;
   const totalPages = Math.ceil(data.length / pageSize);
   const currentPage = valuePage.start / pageSize + 1;
 
@@ -53,7 +37,7 @@ function CommandHistory() {
                     <td className="py-3 px-6 text-left">
                       <div className="flex items-center cursor-pointer max-w-[200px]">
                         <span className="font-medium hover:text-yellow-500">
-                          {command.date}
+                          {convertDateString(command.date)}
                         </span>
                       </div>
                     </td>
@@ -104,7 +88,7 @@ function CommandHistory() {
                 ))}
             </tbody>
           </table>
-        <p>On trouve ({data.length}) résultat(s)</p>
+          <p>On trouve ({data.length}) résultat(s)</p>
         </div>
       </div>
       <div className="mt-4 flex justify-center">
@@ -116,7 +100,7 @@ function CommandHistory() {
                   setValuePage({
                     start: (pageNumber - 1) * pageSize,
                     end: pageNumber * pageSize,
-                });
+                  });
                 }}
                 className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
                   }`}

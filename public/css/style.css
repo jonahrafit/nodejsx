@@ -12141,14 +12141,14 @@ strong {
 }
 
 .page_title {
-    padding: 65px 0px 45px;
+    padding: 65px 0px 15px;
     position: relative;
 }
 
 .page_title p {
     font-size: 24px;
     font-weight: 500;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     color: #7272A8;
 }
 
@@ -16052,6 +16052,7 @@ iframe {
 
 .revenue_universe .option-btn {
     display: flex;
+    justify-content: flex-end;
 }
 
 .revenue_universe .option-btn .dropdown-menu {

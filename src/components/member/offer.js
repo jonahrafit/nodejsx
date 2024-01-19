@@ -3,40 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getValidationByUser } from "../../store/actions/validation";
 import { generatePageNumbers } from "../../utils/pagination";
+import { convertDateString } from "../../utils/converDate";
 
-function OfferHistory() {
-  const dispatch = useDispatch();
-  const validations = useSelector((state) => state.validation);
-  const [data, setData] = useState([]);
-  const [state, setState] = useState("");
-  const auth = useSelector((state) => state.auth);
+function OfferHistory({ data }) {
   const [valuePage, setValuePage] = useState({ start: 0, end: 8 });
-  useEffect(() => {
-    if (auth.user) dispatch(getValidationByUser(auth.user.hashId));
-  }, [dispatch, auth]);
-
-  useEffect(() => {
-    setData(validations.reverse());
-  }, [validations]);
-  // function changeState() {
-  //   if (state === 'UP') {
-  //     setState('DOWN');
-  //     setData(
-  //       data.sort(
-  //         (a, b) => parseFloat(a.remuneration) - parseFloat(b.remuneration)
-  //       )
-  //     );
-  //   } else {
-  //     setState('UP');
-  //     setData(
-  //       data.sort(
-  //         (a, b) => parseFloat(a.remuneration) + parseFloat(b.remuneration)
-  //       )
-  //     );
-  //   }
-  // }
-
-  const pageSize = 7; // Nombre d'éléments par page
+  const pageSize = 4;
   const totalPages = Math.ceil(data.length / pageSize);
   const currentPage = valuePage.start / pageSize + 1;
 
@@ -67,8 +38,8 @@ function OfferHistory() {
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center max-w-[150px]">
                             {isNaN(validation.idt)
-                              ? validation.dateH
-                              : validation.dateO}
+                              ? convertDateString(validation.dateH)
+                              : convertDateString(validation.dateO)}
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
@@ -87,8 +58,8 @@ function OfferHistory() {
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center ">
                             {isNaN(validation.idt)
-                              ? validation.renumerationH
-                              : validation.renumerationO}
+                              ? validation.renumerationH + ' '
+                              : validation.renumerationO + ' '}
                             €
                           </div>
                         </td>
@@ -122,7 +93,7 @@ function OfferHistory() {
                   })}
             </tbody>
           </table>
-        <p>On trouve ({data.length}) résultat(s)</p>
+          <p>On trouve ({data.length}) résultat(s)</p>
         </div>
       </div>
 
@@ -135,7 +106,7 @@ function OfferHistory() {
                   setValuePage({
                     start: (pageNumber - 1) * pageSize,
                     end: pageNumber * pageSize,
-                });
+                  });
                 }}
                 className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
                   }`}

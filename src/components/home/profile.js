@@ -50,6 +50,7 @@ function Profile() {
       .then(async (res) => {
         setTotal(res.data.total);
         setDataMission(res.data.mission);
+        console.log('STATISTIQUE ========== ', res.data.mission);
       });
   }
 

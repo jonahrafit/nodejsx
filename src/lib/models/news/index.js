@@ -7,21 +7,20 @@ export async function allNews() {
         const request = await executeQuery({
             query: `SELECT * FROM news`,
         });
-        return {request, success: true};
+        return { request, success: true };
     } catch (error) {
-        return {error, success: false};
+        return { error, success: false };
     }
 }
 
 export async function listNews() {
     try {
         const request = await executeQuery({
-            query: `SELECT * FROM news ORDER BY date DESC
-      LIMIT 0, 3`,
+            query: `SELECT * FROM news ORDER BY STR_TO_DATE(date, '%m/%d/%Y') DESC LIMIT 0, 3`,
         });
-        return {request, success: true};
+        return { request, success: true };
     } catch (error) {
-        return {error, success: false};
+        return { error, success: false };
     }
 }
 
@@ -32,10 +31,10 @@ export async function createNews(data) {
             values: [data.titre, data.date, data.description],
         });
         // const data = null;
-        return {request, message: 'Created', success: true};
+        return { request, message: 'Created', success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: 'Erreur lors de la création', success: false};
+        return { error, message: 'Erreur lors de la création', success: false };
     }
 }
 
@@ -47,10 +46,10 @@ export async function updateNews(data, id) {
             values: [data.titre, data.date, data.description, data.etat, id],
         });
         // const data = null;
-        return {request, message: 'Created', success: true};
+        return { request, message: 'Created', success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: 'Erreur lors de la création', success: false};
+        return { error, message: 'Erreur lors de la création', success: false };
     }
 }
 
@@ -60,9 +59,9 @@ export async function deleteNews(id) {
             query: `DELETE FROM news WHERE id = ${id}`,
         });
         // const data = null;
-        return {request, message: 'Deleted', success: true};
+        return { request, message: 'Deleted', success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: 'Erreur lors de la Deleted', success: false};
+        return { error, message: 'Erreur lors de la Deleted', success: false };
     }
 }

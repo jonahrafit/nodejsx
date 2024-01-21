@@ -1,4 +1,5 @@
 import { Line } from "react-chartjs-2";
+import { convertDateString } from "../../utils/converDate";
 
 function ChartData({ name, dataMission }) {
     let color = "#6366F1";
@@ -6,7 +7,7 @@ function ChartData({ name, dataMission }) {
     function diffBetweenDay(date2) {
         const today = new Date();
         const yyyy = today.getFullYear();
-        let mm = today.getMonth() + 1; // Months start at 0!
+        let mm = today.getMonth() + 1;
         let dd = today.getDate();
         if (dd < 10) dd = "0" + dd;
         if (mm < 10) mm = "0" + mm;
@@ -17,13 +18,16 @@ function ChartData({ name, dataMission }) {
             formattedToday.split("/")[0]
         );
 
-        date2 = new Date(
+        // puisque le format de date via a la base de donné etait 1/29/2024
+        const dateup = new Date(
             date2.split("/")[2],
-            date2.split("/")[1] - 1,
-            date2.split("/")[0]
+            date2.split("/")[0] - 1,
+            date2.split("/")[1]
         );
-        var timeDiff = Math.abs(date2.getTime() - today.getTime());
+        console.log('DATE up = __________', dateup);
+        var timeDiff = Math.abs(dateup.getTime() - today.getTime());
         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) - 1;
+        console.log('DATE UPDATE ', dateup , ' --- DIFFDAYS ', diffDays);
         return diffDays;
     }
 

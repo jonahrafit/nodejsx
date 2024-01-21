@@ -1,7 +1,7 @@
 import LayoutAdmin from '../../components/layout/LayoutAdmin';
 import axios from 'axios';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import allPays from '../../utils/allCountry';
 import Alert from '../../components/modal/alert';
 
@@ -54,8 +54,8 @@ export default function AdminCountry() {
             console.log(res.data);
             if (res.data[0]) {
                 console.log(res.data[0].code);
-
-                setAcceptedCountry(JSON.parse(res.data[0].code).map(el => el.code));
+                const data = JSON.parse(res.data[0].code).map(el => el.code);
+                setAcceptedCountry(data);
             }
         });
     }
@@ -102,8 +102,8 @@ export default function AdminCountry() {
                                             key={index}
                                             className="bg-indigo-500 my-1 text-white px-2 rounded py-1 font-bold ml-4"
                                         >
-                      {c}
-                    </span>
+                                            {c}
+                                        </span>
                                     ))}
                                 </div>
                                 <div>

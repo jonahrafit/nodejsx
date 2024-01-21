@@ -21,10 +21,10 @@ export async function createValidation(data) {
             ],
         });
         // const data = null;
-        return {request, message: "Created", success: true};
+        return { request, message: "Created", success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: "Erreur lors de la création", success: false};
+        return { error, message: "Erreur lors de la création", success: false };
     }
 }
 
@@ -32,13 +32,13 @@ export async function getByUser(data) {
     try {
         const request = await executeQuery({
             query:
-                "SELECT *, histo_offers.remuneration as renumerationH, offers.remuneration as renumerationO,histo_offers.date as dateH, offers.date as dateO FROM histo_offers LEFT JOIN offers ON histo_offers.data = offers.idoffre WHERE idUser = ?",
+                "SELECT *, histo_offers.remuneration as renumerationH, offers.remuneration as renumerationO,histo_offers.date as dateH, offers.date as dateO FROM histo_offers LEFT JOIN offers ON histo_offers.data = offers.idoffre WHERE idUser = ? order by STR_TO_DATE(histo_offers.date, '%m/%d/%Y') DESC",
             values: [data],
         });
-        return {request, message: "Erreur lors de la création", success: true};
+        return { request, message: "Erreur lors de la création", success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: "Erreur lors de la création", success: false};
+        return { error, message: "Erreur lors de la création", success: false };
     }
 }
 
@@ -49,10 +49,10 @@ export async function getByUserAndIp(userID, date, offre, ipAddress) {
                 "SELECT * FROM histo_offers WHERE idUser = ? AND date = ? AND data = ?",
             values: [userID, date, offre],
         });
-        return {request, message: "Erreur lors de la création", success: true};
+        return { request, message: "Erreur lors de la création", success: true };
     } catch (error) {
         console.log(error);
-        return {error, message: "Erreur lors de la création", success: false};
+        return { error, message: "Erreur lors de la création", success: false };
     }
 }
 
@@ -68,9 +68,9 @@ export async function allValidation() {
       WHERE etat = "PENDING" OR etat = "PENDING_VALIDATION"
       `,
         });
-        return {request, success: true};
+        return { request, success: true };
     } catch (error) {
-        return {error, success: false};
+        return { error, success: false };
     }
 }
 
@@ -87,9 +87,9 @@ export async function allPending() {
            WHERE etat = "PENDING"
       `,
         });
-        return {request, success: true};
+        return { request, success: true };
     } catch (error) {
-        return {error, success: false};
+        return { error, success: false };
     }
 }
 
@@ -98,8 +98,8 @@ export async function validate(etat, id) {
         const offre = await executeQuery({
             query: `SELECT * FROM histo_offers WHERE id =${id}`,
         });
-        const {idUser, remuneration} = await offre[0];
-        console.log({idUser, remuneration});
+        const { idUser, remuneration } = await offre[0];
+        console.log({ idUser, remuneration });
         await executeQuery({
             query: `UPDATE users SET euros = (euros + ${remuneration}) WHERE hashId = "${idUser}" `,
         });
@@ -109,8 +109,8 @@ export async function validate(etat, id) {
             query: `UPDATE histo_offers SET etat =? WHERE id = ? `,
             values: [etat, id],
         });
-        return {message: `L'etat ${etat} en succès`, success: true};
+        return { message: `L'etat ${etat} en succès`, success: true };
     } catch (error) {
-        return {message: "Erreur", success: false, error};
+        return { message: "Erreur", success: false, error };
     }
 }

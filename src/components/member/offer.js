@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 
-import { getValidationByUser } from "../../store/actions/validation";
 import { generatePageNumbers } from "../../utils/pagination";
-import { convertDateString } from "../../utils/converDate";
 
 function OfferHistory({ data }) {
   const [valuePage, setValuePage] = useState({ start: 0, end: 8 });
-  const pageSize = 4;
+  const pageSize = 7;
   const totalPages = Math.ceil(data.length / pageSize);
   const currentPage = valuePage.start / pageSize + 1;
 
@@ -37,17 +34,13 @@ function OfferHistory({ data }) {
                       >
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center max-w-[150px]">
-                            {isNaN(validation.idt)
-                              ? convertDateString(validation.dateH)
-                              : convertDateString(validation.dateO)}
+                            {validation.date}
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center cursor-pointer max-w-[400px]">
                             <span className="font-medium">
-                              {isNaN(validation.idt)
-                                ? validation.idt
-                                : validation.nom}
+                              {validation.nom}
                             </span>
                             <span className="text-xs text-blue-500 ml-2">
                               ({validation.offerwall})
@@ -57,9 +50,7 @@ function OfferHistory({ data }) {
 
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center ">
-                            {isNaN(validation.idt)
-                              ? validation.renumerationH + ' '
-                              : validation.renumerationO + ' '}
+                            {validation.renumeration}
                             €
                           </div>
                         </td>

@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
-import {Fragment, useRef, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {useDispatch, useSelector} from "react-redux";
-import {amountShop, singleShop} from "../../store/actions/shop";
+import React, { useEffect } from "react";
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { amountShop, singleShop } from "../../store/actions/shop";
 import axios from "axios";
-import {getUserAuth} from "../../store/actions/userAction";
+import { getUserAuth } from "../../store/actions/userAction";
 
-function SelectShop({show, setShow, shopID}) {
+function SelectShop({ show, setShow, shopID }) {
     const cancelButtonRef = useRef(null);
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(0);
@@ -61,7 +61,7 @@ function SelectShop({show, setShow, shopID}) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -130,12 +130,12 @@ function SelectShop({show, setShow, shopID}) {
                                                                     className="inline-flex items-center space-x-3 rtl:space-x-reverse filament-forms-field-wrapper-label"
                                                                     htmlFor="state.package_id"
                                                                 >
-                                  <span className="text-sm font-medium leading-4 text-gray-700">
-                                    Package
-                                    <sup className="font-medium text-danger-700">
-                                      *
-                                    </sup>
-                                  </span>
+                                                                    <span className="text-sm font-medium leading-4 text-gray-700">
+                                                                        Package
+                                                                        <sup className="font-medium text-danger-700">
+                                                                            *
+                                                                        </sup>
+                                                                    </span>
                                                                 </label>
                                                             </div>
 
@@ -148,9 +148,8 @@ function SelectShop({show, setShow, shopID}) {
                                                                         <div
                                                                             key={index}
                                                                             onClick={() => setSelected(a.montant)}
-                                                                            className={`${
-                                                                                selected == a.montant && "bg-yellow-500"
-                                                                            } border-2 rounded-lg border-yellow-500`}
+                                                                            className={`${selected == a.montant && "bg-yellow-500"
+                                                                                } border-2 rounded-lg border-yellow-500`}
                                                                         >
                                                                             <input
                                                                                 name="state.package_id"
@@ -180,18 +179,18 @@ function SelectShop({show, setShow, shopID}) {
                                                                 <div className="space-y-1">
                                                                     <div
                                                                         className="flex items-center justify-between text-sm">
-                                    <span className="text-red-500">
-                                      Required Balance
-                                    </span>
+                                                                        <span className="text-red-500">
+                                                                            Required Balance
+                                                                        </span>
                                                                         <span className="font-medium">
-                                      € {selected - auth.user.euros}
-                                    </span>
+                                                                            € {selected - auth.user.euros}
+                                                                        </span>
                                                                     </div>
                                                                     <div
                                                                         className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                                                                         <div
                                                                             className="h-2 bg-green-500 rounded-full max-w-full"
-                                                                            style={{width: "0.00%"}}
+                                                                            style={{ width: "0.00%" }}
                                                                         ></div>
                                                                     </div>
                                                                 </div>
@@ -204,7 +203,7 @@ function SelectShop({show, setShow, shopID}) {
                                                             (auth &&
                                                                 auth.user &&
                                                                 auth.user.euros < selected) ||
-                                                            selected === 0
+                                                                selected === 0
                                                                 ? true
                                                                 : false
                                                         }

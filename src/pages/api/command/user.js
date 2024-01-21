@@ -1,9 +1,9 @@
-import {getCommandByUser2} from '../../../lib/models/command';
+import {getCommandByUserOrderByDateDesc} from '../../../lib/models/command';
 
 // api: http://localhost:3000/api/auth/login
 export default async function handler(req, res) {
     try {
-        const response = await getCommandByUser2(req.body.userID);
+        const response = await getCommandByUserOrderByDateDesc(req.body.userID);
 
         if (!response) {
             res.status(400).json({

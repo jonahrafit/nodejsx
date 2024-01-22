@@ -7,7 +7,7 @@ import Login from '../modal/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuth, logoutUser } from '../../store/actions/userAction';
 import { useRouter } from 'next/dist/client/router';
-import HeaderTooltip from './headerTooltip';
+import Swal from 'sweetalert2';
 function HeaderAdmin() {
     const [openClass, setOpenClass] = useState(false);
     const [show, setShow] = useState(false);
@@ -18,15 +18,16 @@ function HeaderAdmin() {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
     const navigate = useRouter();
+    
     useEffect(() => {
         dispatch(getUserAuth());
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(auth);
         if (auth.user && auth.user.level !== 99) {
             navigate.push('/');
         }
+        console.log(auth);
     }, [auth]);
     const handleOpen = () => setOpenClass(!openClass);
     const handleShow = () => setShow(!show);
@@ -36,23 +37,6 @@ function HeaderAdmin() {
     });
 
     function logout() {
-        Swal.mixin({
-            toast: true,
-            position: "bottom-right",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener(
-                    "mouseleave",
-                    Swal.resumeTimer
-                );
-            }
-        }).fire({
-            icon: "success",
-            title: "Vous êtes déconnécté avec succès!",
-        });;
         dispatch(logoutUser()).then(() => {
             router.push("/");
         });
@@ -64,8 +48,8 @@ function HeaderAdmin() {
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12">
-                            <nav className="navbar navbar-expand-lg navbar-light">
-                                <Link href="/">
+                            <nav className="navbar navbar-expand-lg navbar-light justify-content-between">
+                                <Link href="/admin">
                                     <a className="navbar-brand">MAXCADEAUX</a>
                                 </Link>
                                 <button
@@ -84,8 +68,8 @@ function HeaderAdmin() {
                                     }
                                     id="navbarSupportedContent"
                                 ></div>
-                                <div className="dashboard_log my-2">
-                                    <div className="d-flex align-items-center">
+                                <div className="dashboard_log my-2 justify-content-end">
+                                    <div className="d-flex ">
                                         {!auth.isAuth ? (
                                             <div>
                                                 <button

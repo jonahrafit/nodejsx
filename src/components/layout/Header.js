@@ -573,14 +573,13 @@ function Header() {
                     <div className="flex items-center h-16">
                         <div className="overflow-y-hidden overflow-x-auto no-scrollbar pb-3 px-1 -mx-4">
                             <div className="flex items-center flex-row-reverse space-x-reverse space-x-2 w-max">
-                                {Array.isArray(allPending) && allPending.map((e, i) => {
-                                    return (
+                                <div className="flex items-center overflow-x-auto space-x-2 max-w-screen">
+                                    {Array.isArray(allPending) && allPending.map((e, i) => (
                                         <div key={i}>
                                             <HistoTooltip data={e} />
                                         </div>
-
-                                    );
-                                })}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -25,8 +25,8 @@ export async function createTicket({ data }) {
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.ZOHO_USER,
             pass: process.env.ZOHO_PASSWORD

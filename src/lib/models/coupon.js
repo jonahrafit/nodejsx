@@ -12,6 +12,18 @@ const getAllCoupons = async (req, res) => {
     }
 };
 
+const getAllCouponsActif = async (req, res) => {
+    try {
+        const couponsData = await executeQuery({
+            query: "select * from coupons where actif = 1",
+            values: [],
+        });
+        res.status(200).json(couponsData);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 const getCouponById = async (req, res) => {
     let id = req.query.id;
     try {
@@ -20,7 +32,7 @@ const getCouponById = async (req, res) => {
             values: [id],
         });
         if (couponData.length > 0) res.status(200).json(couponData);
-        res.status(404).json({error: `No Coupon found with  this ID : ${id}`});
+        res.status(404).json({ error: `No Coupon found with  this ID : ${id}` });
 
         // next(new ErrorHandler(`No Coupon found with  this ID : ${id}`, 404));
     } catch (error) {
@@ -170,6 +182,7 @@ const updateCoupon = async (req, res) => {
 export {
     getAllCoupons,
     getCouponById,
+    getAllCouponsActif,
     deleteCouponById,
     newCoupon,
     updateCoupon,

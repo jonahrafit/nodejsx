@@ -8,8 +8,7 @@ export default async function handler(req, res) {
     const {token} = req.body;
     try {
         const verified = await verify(token, 'config-my.secret');
-        // console.log('verified');
-        // console.log(verified);
+        
         if (!verified) {
             res.status(400).json({
                 message: 'error',

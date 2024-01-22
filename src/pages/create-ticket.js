@@ -22,7 +22,7 @@ function Blank() {
     const [loadingCreateTicket, setLoadingCreateTicket] = useState(false);
 
     function createTicket(e) {
-        // console.log("tickets: ", tickets);
+        console.log("tickets: ", tickets);
         e.preventDefault();
         setLoadingCreateTicket(true);
         axios
@@ -201,12 +201,13 @@ function Blank() {
                                                         padding: "20px",
                                                     }}
                                                     value={tickets.description}
-                                                    onChange={(e) =>
+                                                    onChange={(e) => {
                                                         setTickets({
                                                             ...tickets,
+                                                            user: emailUser,
                                                             description: e.target.value,
-                                                        })
-                                                    }
+                                                        });
+                                                    }}
                                                     name=""
                                                     id=""
                                                     rows="10"
@@ -217,6 +218,7 @@ function Blank() {
                                             <div className="text-center">
                                                 <button
                                                     type="submit"
+                                                    disabled={tickets.description.length === 0}
                                                     className="btn btn-primary"
                                                 >
                                                     {loadingCreateTicket ? "En cours de traitement ..." : "Envoyer"}

@@ -3,6 +3,7 @@ import {
     COUPON_ADD,
     COUPON_DELETE,
     COUPON_LIST,
+    COUPON_LIST_ACTIF,
     COUPON_UPDATE,
     USER_ERROR,
 } from "../types";
@@ -13,6 +14,21 @@ export const getAllCoupon = () => async (dispatch) => {
     try {
         dispatch({
             type: COUPON_LIST,
+            payload: response.data ? response.data : [],
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_ERROR,
+            payload: "error message",
+        });
+    }
+};
+
+export const getAllCouponActif = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`/api/coupon/couponactif`);
+        dispatch({
+            type: COUPON_LIST_ACTIF,
             payload: response.data ? response.data : [],
         });
     } catch (error) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/layout/Layout";
 import ChooseCoupon from "../components/modal/coupon";
-import { getAllCoupon } from "../store/actions/couponAction";
+import { getAllCouponActif } from "../store/actions/couponAction";
 import { filterObjectsByName, generatePageNumbers } from "../utils/pagination";
 
 function Blank() {
@@ -14,7 +14,7 @@ function Blank() {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        dispatch(getAllCoupon());
+        dispatch(getAllCouponActif());
     }, [dispatch]);
 
     function showCoupon(coupon) {
@@ -31,7 +31,7 @@ function Blank() {
 
     const filteredCoupon = filterObjectsByName(coupon, search);
 
-    const pageSize = 9; // Nombre d'éléments par page
+    const pageSize = 9;
     const totalPages = Math.ceil(filteredCoupon.length / pageSize);
     const currentPage = valuePage.start / pageSize + 1;
 

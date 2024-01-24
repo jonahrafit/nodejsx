@@ -1,13 +1,13 @@
 import Link from "next/link";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Coupon from "../../components/admin/coupon";
 import LayoutAdmin from "../../components/layout/LayoutAdmin";
 import FormCoupon from "../../components/modal/formCoupon";
-import {getAllCoupon} from "../../store/actions/couponAction";
+import { getAllCoupon } from "../../store/actions/couponAction";
 import convertDate from "../../utils/converDate";
 
-
+import axios from "axios";
 import CouponDetails from "../../components/modal/couponDetails";
 import DeleteCoupon from "../../components/modal/deleteCoupon";
 
@@ -16,11 +16,11 @@ export default function CouponAdmin() {
     const coupon = useSelector((state) => state.coupon);
     const [show, setShow] = useState(false);
 
-
     const [current, setCurrent] = useState();
     const [showC, setShowC] = useState(false);
     const [edit, setEdit] = useState(false);
     const [deleted, setDeleted] = useState(false);
+    const [image, setImage] = useState(false);
 
     function showCoupon(coupon) {
         console.log(coupon);
@@ -34,11 +34,28 @@ export default function CouponAdmin() {
         setCurrent(coupon);
     }
 
+    async function updateCouponActif(id, actif) {
+        await axios
+            .put(`/api/coupon/update-actif`, {
+                id: id,
+                actif: actif
+            })
+            .then((res) => {
+                if (res.status == 200) {
+                    console.log('OK NY UPDATE');
+                    dispatch(getAllCoupon());
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     useEffect(() => {
         // return
         dispatch(getAllCoupon());
     }, []);
+
     return (
         <LayoutAdmin>
             <div className="gift_card">
@@ -63,7 +80,7 @@ export default function CouponAdmin() {
                                 className="py-2 px-4 text-sm font-medium text-white bg-[#00d7b3] hover:bg-[#01be9f] rounded-md"
                             >
                                 <i className="fa fa-pen mr-1"></i>
-                                Ajouer
+                                Ajouter
                             </button>
                         </div>
                         <div className="col-lg-12">
@@ -73,29 +90,28 @@ export default function CouponAdmin() {
                                         <div className="bg-white shadow-md rounded my-6">
                                             <table className="min-w-max w-full table-auto">
                                                 <thead>
-                                                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                                    <th className="py-3 px-6 text-left">Nom</th>
-                                                    <th className="py-3 px-6 text-left">Date debut</th>
-                                                    <th className="py-3 px-6 text-center">Date Fin</th>
-                                                    <th className="py-3 px-6 text-center">Actif</th>
-                                                    <th className="py-3 px-6 text-center">Actions</th>
-                                                </tr>
+                                                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                                        <th className="py-3 px-6 text-left">Nom</th>
+                                                        <th className="py-3 px-6 text-left">Date debut</th>
+                                                        <th className="py-3 px-6 text-center">Date Fin</th>
+                                                        <th className="py-3 px-6 text-center">Actif</th>
+                                                        <th className="py-3 px-6 text-center">Actions</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody className="text-gray-600 text-sm font-light">
-                                                {coupon &&
-                                                    coupon.length > 0 &&
-                                                    coupon.map((c, index) =>
-
+                                                    {coupon &&
+                                                        coupon.length > 0 &&
+                                                        coupon.map((c, index) =>
                                                             <tr key={index}
                                                                 className="border-b border-gray-200 bg-gray-50 hover:bg-gray-100">
                                                                 <td className="py-3 px-6 text-left">
                                                                     <div className="flex items-center">
-                                      <span
-                                          onClick={() => showCoupon(c)}
-                                          className="font-medium text-lg hover:text-yellow-500 cursor-pointer"
-                                      >
-                                        {c.nom}
-                                      </span>
+                                                                        <span
+                                                                            onClick={() => showCoupon(c)}
+                                                                            className="font-medium text-lg hover:text-yellow-500 cursor-pointer"
+                                                                        >
+                                                                            {c.nom}
+                                                                        </span>
                                                                     </div>
                                                                 </td>
                                                                 <td className="py-3 px-6 text-left">
@@ -110,9 +126,30 @@ export default function CouponAdmin() {
                                                                     </div>
                                                                 </td>
                                                                 <td className="py-3 px-6 text-center">
-                                                                    <div
-                                                                        className="flex text-lg items-center justify-center">
-                                                                        {c.actif}
+                                                                    <div className="flex text-lg items-center justify-center">
+                                                                        {c.actif ? (
+                                                                            <button
+                                                                                onClick={() => {
+                                                                                    updateCouponActif(c.id, 0);
+                                                                                }}
+                                                                                className="py-1 px-2 rounded-sm bg-green-400 "
+                                                                            >
+                                                                                <span className="text-xs">
+                                                                                    Actif
+                                                                                </span>
+                                                                            </button>
+                                                                        ) : (
+                                                                            <button
+                                                                                onClick={() => {
+                                                                                    updateCouponActif(c.id, 1);
+                                                                                }}
+                                                                                className="py-1 px-2 rounded-sm bg-blue-400"
+                                                                            >
+                                                                                <span className="text-xs">
+                                                                                    Inactif
+                                                                                </span>
+                                                                            </button>
+                                                                        )}
                                                                     </div>
                                                                 </td>
                                                                 <td className="py-3 px-6 text-center">
@@ -183,14 +220,9 @@ export default function CouponAdmin() {
                                                                 </td>
                                                             </tr>
 
-
-
-
-
-
-                                                        // <Coupon key={index} coupon={c}
-                                                        // />
-                                                    )}
+                                                            // <Coupon key={index} coupon={c}
+                                                            // />
+                                                        )}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -200,14 +232,14 @@ export default function CouponAdmin() {
                         </div>
                     </div>
                     {current && showC && (
-                        <CouponDetails setShow={setShowC} show={showC} coupon={current}/>
+                        <CouponDetails setShow={setShowC} show={showC} coupon={current} />
                     )}
                     {edit && current && (
-                        <FormCoupon edit={edit} setEdit={setEdit} current={current}/>
+                        <FormCoupon edit={edit} setEdit={setEdit} current={current} />
                     )}
 
                     {deleted && current && (
-                        <DeleteCoupon id={current.id} show={deleted} setShow={setDeleted}/>
+                        <DeleteCoupon id={current.id} show={deleted} setShow={setDeleted} />
                     )}
 
                     {/* <div className="row">
@@ -216,7 +248,7 @@ export default function CouponAdmin() {
           </div> */}
                 </div>
             </div>
-            {show && <FormCoupon edit={show} setEdit={setShow}/>}
+            {show && <FormCoupon edit={show} setEdit={setShow} />}
         </LayoutAdmin>
     );
 }

@@ -56,6 +56,7 @@ const deleteCouponById = async (req, res) => {
 };
 
 const newCoupon = async (req, res) => {
+    console.log('TONGA ATY ILAY IZY  ', req.body);
     try {
         const result = req.body;
         const {
@@ -139,12 +140,13 @@ const updateCoupon = async (req, res) => {
         dateFin,
         image,
     } = req.body;
-    console.log(req.body);
+    console.log('REQ BODY FOR UPDATE', req.body);
     try {
         let couponData = await executeQuery({
             query: "select * from coupons where id = ?",
             values: [id],
         });
+        console.log('REQ BODY FOR select before update', req.body);
         if (couponData.length) {
             couponData = await executeQuery({
                 query:
@@ -166,10 +168,12 @@ const updateCoupon = async (req, res) => {
                     id,
                 ],
             });
+            console.log('INSERT ENY E', couponData);
             couponData = await executeQuery({
                 query: `select * from coupons where id =  ?`,
                 values: [id],
             });
+            console.log('INSERT ENY E SELECT', couponData);
             res.status(200).json(couponData);
         } else {
             res.status(400).json(`Coupon not found on this id = ${id}`);

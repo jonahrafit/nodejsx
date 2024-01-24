@@ -1,15 +1,17 @@
-import React, {useEffect} from "react";
-import {Fragment, useRef, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {useDispatch} from "react-redux";
+import React, { useEffect } from "react";
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { useDispatch } from "react-redux";
 import {
     getAllCoupon,
     newCoupon,
     updateCoupon,
 } from "../../store/actions/couponAction";
+import uploadFile from "../../utils/uploadService";
 
-function FormCoupon({current = null, edit, setEdit}) {
+function FormCoupon({ current = null, edit, setEdit }) {
     const cancelButtonRef = useRef(null);
+    const [image, setImage] = useState('');
     const [coupon, setCoupon] = useState({
         idcoupon: 0,
         actif: 0,
@@ -18,7 +20,7 @@ function FormCoupon({current = null, edit, setEdit}) {
         dateFin: "",
         description: "",
         description2: "",
-        id: 6,
+        id: '',
         idcoupon: "",
         image: "",
         nom: "",
@@ -31,14 +33,9 @@ function FormCoupon({current = null, edit, setEdit}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         if (current) {
-
             setCoupon(current);
-
         }
-
-
     }, []);
 
     function editCoupon() {
@@ -48,14 +45,57 @@ function FormCoupon({current = null, edit, setEdit}) {
         setCoupon(null);
     }
 
+    // function editCoupon() {
+    //     uploadFile(image)
+    //         .then((response) => {
+    //             const updatedCoupon = {
+    //                 ...coupon,
+    //                 id: coupon.id,
+    //                 image: response.data.path,
+    //             };
+    //             console.log('ADD NEW COUPON', updatedCoupon);
+    //             dispatch(updateCoupon(updatedCoupon, coupon.id));
+    //             setEdit(false);
+    //             dispatch(getAllCoupon());
+    //             setCoupon(null);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Erreur lors du téléchargement de l\'image', error);
+    //         });
+    // }
+
     function addCoupon() {
-        dispatch(newCoupon(coupon))
+        uploadFile(image)
+            .then((response) => {
+                const updatedCoupon = {
+                    ...coupon,
+                    image: response.data.path,
+                };
+                console.log('ADD NEW COUPON', updatedCoupon);
+                dispatch(newCoupon(updatedCoupon));
+                setEdit(false);
+                dispatch(getAllCoupon());
+                setCoupon(null);
+            })
+            .catch((error) => {
+                console.error('Erreur lors du téléchargement de l\'image', error);
+            });
+    }
 
-        setEdit(false);
-        dispatch(getAllCoupon());
-        setCoupon(null);
 
-        //});
+    function executeInput() {
+        const elem = document.getElementById('upload-img');
+        elem.click();
+    }
+
+    function upload(event) {
+        const img = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const image = reader.result;
+            setImage(image);
+        };
+        reader.readAsDataURL(img);
     }
 
     return (
@@ -76,7 +116,7 @@ function FormCoupon({current = null, edit, setEdit}) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -102,7 +142,7 @@ function FormCoupon({current = null, edit, setEdit}) {
                                                         <label htmlFor="">Nom</label>
                                                         <input
                                                             onChange={(e) =>
-                                                                setCoupon({...coupon, nom: e.target.value})
+                                                                setCoupon({ ...coupon, nom: e.target.value })
                                                             }
                                                             type="text"
                                                             className="form-control min-w-[600px]"
@@ -131,7 +171,7 @@ function FormCoupon({current = null, edit, setEdit}) {
                                                             type="text"
                                                             className="form-control border-yellow-400 border-2"
                                                             onChange={(e) =>
-                                                                setCoupon({...coupon, pays: e.target.value})
+                                                                setCoupon({ ...coupon, pays: e.target.value })
                                                             }
                                                             value={coupon.pays}
                                                             placeholder="Entrez le pays"
@@ -158,7 +198,7 @@ function FormCoupon({current = null, edit, setEdit}) {
                                                             type="text"
                                                             className="form-control border-yellow-400 border-2"
                                                             onChange={(e) =>
-                                                                setCoupon({...coupon, code: e.target.value})
+                                                                setCoupon({ ...coupon, code: e.target.value })
                                                             }
                                                             value={coupon.code}
                                                             placeholder="Entrez le code"
@@ -170,41 +210,77 @@ function FormCoupon({current = null, edit, setEdit}) {
                                                             type="text"
                                                             className="form-control border-yellow-400 border-2"
                                                             onChange={(e) =>
-                                                                setCoupon({...coupon, url: e.target.value})
+                                                                setCoupon({ ...coupon, url: e.target.value })
                                                             }
                                                             value={coupon.url}
                                                             placeholder="Entrez l'url"
                                                         />
                                                     </div>
-                                                    <div className="form-group mb-4">
-                                                        <label htmlFor="">Date début</label>
-                                                        <input
-                                                            type="date"
-                                                            className="form-control border-yellow-400 border-2"
-                                                            onChange={(e) =>
-                                                                setCoupon({
-                                                                    ...coupon,
-                                                                    dateDebut: e.target.value,
-                                                                })
-                                                            }
-                                                            value={coupon.dateDebut}
-                                                            placeholder="Entrez la date de début"
-                                                        />
-                                                    </div>
-                                                    <div className="form-group mb-4">
-                                                        <label htmlFor="">Date fin</label>
-                                                        <input
-                                                            type="date"
-                                                            onChange={(e) =>
-                                                                setCoupon({
-                                                                    ...coupon,
-                                                                    dateFin: e.target.value,
-                                                                })
-                                                            }
-                                                            value={coupon.dateFin}
-                                                            className="form-control border-yellow-400 border-2"
-                                                            placeholder="Entrez la date de fin"
-                                                        />
+
+                                                    <div className="col-lg-12">
+                                                        <div className="row">
+                                                            <div className="col-lg-6">
+                                                                <div className="form-group mb-4 text-black">
+                                                                    {image !== '' ? (
+                                                                        <img
+                                                                            onClick={() => executeInput()}
+                                                                            className="w-full h-full object-cover"
+                                                                            src={image}
+                                                                            alt=""
+                                                                        />
+                                                                    ) : (
+                                                                        edit ? (
+                                                                            <img
+                                                                                onClick={() => executeInput()}
+                                                                                className="w-full h-full object-cover"
+                                                                                src={edit ? `/uploads/${coupon.image}` : image}
+                                                                                alt=""
+                                                                                onError={(e) => {
+                                                                                    e.target.src = '/images/profile/profile.png';
+                                                                                }}
+                                                                            />
+                                                                        ) : (
+                                                                            <img
+                                                                                onClick={() => executeInput()}
+                                                                                className="w-full h-full object-cover"
+                                                                                src={'/images/profile/profile.png'}
+                                                                            />
+                                                                        ))}
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-lg-6">
+                                                                <div className="form-group mb-4">
+                                                                    <label htmlFor="">Date début</label>
+                                                                    <input
+                                                                        type="date"
+                                                                        className="form-control border-yellow-400 border-2"
+                                                                        onChange={(e) =>
+                                                                            setCoupon({
+                                                                                ...coupon,
+                                                                                dateDebut: e.target.value,
+                                                                            })
+                                                                        }
+                                                                        value={coupon.dateDebut ? coupon.dateDebut.slice(0, 10) : ''}
+                                                                        placeholder="Entrez la date de début"
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group mb-4">
+                                                                    <label htmlFor="">Date fin</label>
+                                                                    <input
+                                                                        type="date"
+                                                                        onChange={(e) =>
+                                                                            setCoupon({
+                                                                                ...coupon,
+                                                                                dateFin: e.target.value,
+                                                                            })
+                                                                        }
+                                                                        value={coupon.dateFin ? coupon.dateFin.slice(0, 10) : ''}
+                                                                        className="form-control border-yellow-400 border-2"
+                                                                        placeholder="Entrez la date de fin"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="">Description</label>
@@ -232,20 +308,26 @@ function FormCoupon({current = null, edit, setEdit}) {
                                                             onClick={() => editCoupon()}
                                                             className="btn btn-primary"
                                                         >
-                                                            Save
+                                                            Enregistrer
                                                         </button>
                                                     ) : (
                                                         <button
                                                             onClick={() => addCoupon()}
                                                             className="btn btn-primary"
                                                         >
-                                                            Add
+                                                            Ajouter
                                                         </button>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <input
+                                        onChange={(e) => upload(e)}
+                                        type={'file'}
+                                        className="hidden"
+                                        id="upload-img"
+                                    />
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

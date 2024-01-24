@@ -10,7 +10,6 @@ import {
 
 export const getAllCoupon = () => async (dispatch) => {
     const response = await axios.get(`/api/coupon/coupon`);
-    console.log(response);
     try {
         dispatch({
             type: COUPON_LIST,
@@ -55,6 +54,7 @@ export const getCouponById = (id) => async (dispatch) => {
 };
 
 export const newCoupon = (newCoupon) => async (dispatch) => {
+    console.log('NEW COUPONE', newCoupon);
     try {
         await axios.post(`/api/coupon/coupon`, {
             ...newCoupon,
@@ -72,6 +72,8 @@ export const newCoupon = (newCoupon) => async (dispatch) => {
 };
 
 export const updateCoupon = (updated, id) => async (dispatch) => {
+    console.log('COUPON ACTION : UPDATE ', updated);
+    console.log('COUPON ACTION : ID ', id);
     try {
         await axios.put(`/api/coupon/coupon?id=${id}`, {
             ...updated,

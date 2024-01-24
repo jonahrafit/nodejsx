@@ -4,8 +4,7 @@ import {
     getAllCoupons,
     getCouponById,
     newCoupon,
-    updateCoupon,
-    getAllCouponsActif
+    updateCoupon
 } from "../../../lib/models/coupon";
 
 const handler = nc({ attachParams: true });

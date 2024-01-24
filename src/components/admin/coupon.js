@@ -1,12 +1,12 @@
 import Link from "next/link";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import CouponDetails from "../modal/couponDetails";
 import DeleteCoupon from "../modal/deleteCoupon";
 import FormCoupon from "../modal/formCoupon";
 
 import convertDate from "../../utils/converDate";
 
-function Coupon({coupon}) {
+function Coupon({ coupon }) {
     const [current, setCurrent] = useState();
     const [show, setShow] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -29,12 +29,12 @@ function Coupon({coupon}) {
             <tr className="border-b border-gray-200 bg-gray-50 hover:bg-gray-100">
                 <td className="py-3 px-6 text-left">
                     <div className="flex items-center">
-            <span
-                onClick={() => showCoupon()}
-                className="font-medium text-lg hover:text-yellow-500 cursor-pointer"
-            >
-              {coupon.nom}
-            </span>
+                        <span
+                            onClick={() => showCoupon()}
+                            className="font-medium text-lg hover:text-yellow-500 cursor-pointer"
+                        >
+                            {coupon.nom}
+                        </span>
                     </div>
                 </td>
                 <td className="py-3 px-6 text-left">
@@ -121,14 +121,14 @@ function Coupon({coupon}) {
             </tr>
 
             {current && show && (
-                <CouponDetails setShow={setShow} show={show} coupon={coupon}/>
+                <CouponDetails setShow={setShow} show={show} coupon={coupon} />
             )}
             {edit && current && (
-                <FormCoupon edit={edit} setEdit={setEdit} current={current}/>
+                <FormCoupon edit={edit} setEdit={setEdit} current={current} />
             )}
 
             {deleted && current && (
-                <DeleteCoupon id={current.id} show={deleted} setShow={setDeleted}/>
+                <DeleteCoupon id={current.id} show={deleted} setShow={setDeleted} />
             )}
         </>
     );

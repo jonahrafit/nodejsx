@@ -48,7 +48,7 @@ function CouponDetails({ coupon, show, setShow }) {
                                                     <h4 className="card-title">{coupon.nom}</h4>
                                                     <div className="credit-content">
                                                         <div className="flex justify-center mb-4">
-                                                            <img src={coupon.image} />
+                                                            <img src={'/uploads/' + coupon.image} />
                                                         </div>
                                                         <div className="invited d-flex justify-content-between">
                                                             <h6>Start date</h6>

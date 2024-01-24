@@ -73,7 +73,7 @@ function Blank() {
                                                         showCoupon(p);
                                                     }}
                                                     className="cursor-pointer h-[152px] w-[289px] object-fill rounded-t-lg"
-                                                    src={p.image}
+                                                    src={'./uploads/' + p.image}
                                                     alt={"Logo de " + p.nom}
                                                 />
                                             </div>

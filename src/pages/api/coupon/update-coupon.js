@@ -1,4 +1,4 @@
-import { modifierSoldeUser } from "../../../lib/models/auth";
+import { updateCoupon } from "../../../lib/models/couponactif";
 
 export default async function handler(req, res) {
     if (req.method != "PUT")
@@ -6,10 +6,10 @@ export default async function handler(req, res) {
             message: "Erreur! method is PUT in this API!",
         });
     try {
-        const response = await modifierSoldeUser(
+        console.log('RAQ BODY TONGA  ATY ', req.body);
+        const response = await updateCoupon(
             req.body.id,
-            req.body.value,
-            req.body.type
+            req.body.updateCoupon
         );
         if (!response) {
             res.status(400).json({

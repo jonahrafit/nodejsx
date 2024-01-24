@@ -8,6 +8,7 @@ import {
     updateCoupon,
 } from "../../store/actions/couponAction";
 import uploadFile from "../../utils/uploadService";
+import { toast } from "react-toastify";
 
 function FormCoupon({ current = null, edit, setEdit }) {
     const cancelButtonRef = useRef(null);
@@ -38,48 +39,76 @@ function FormCoupon({ current = null, edit, setEdit }) {
         }
     }, []);
 
+
     function editCoupon() {
-        dispatch(updateCoupon(coupon, coupon.id)).then();
-        setEdit(false);
-        dispatch(getAllCoupon());
-        setCoupon(null);
+        if (
+            !coupon.nom ||
+            !coupon.idcoupon ||
+            !coupon.pays ||
+            !coupon.typecoupon ||
+            !coupon.code ||
+            !coupon.url ||
+            !coupon.dateDebut ||
+            !coupon.dateFin ||
+            !coupon.description ||
+            image === null
+        ) {
+            alert('ERREUR : Tous les champs sont obligatoire!');
+            return;
+        }
+        else {
+            uploadFile(image)
+                .then((response) => {
+                    const updatedCoupon = {
+                        ...coupon,
+                        id: coupon.id,
+                        image: response.data.path,
+                    };
+                    console.log('UPDATE COUPON', updatedCoupon);
+                    dispatch(updateCoupon(updatedCoupon, updatedCoupon.id));
+                    setEdit(false);
+                    dispatch(getAllCoupon());
+                    setCoupon(null);
+                })
+                .catch((error) => {
+                    console.error('Erreur lors du téléchargement de l\'image', error);
+                });
+        }
     }
 
-    // function editCoupon() {
-    //     uploadFile(image)
-    //         .then((response) => {
-    //             const updatedCoupon = {
-    //                 ...coupon,
-    //                 id: coupon.id,
-    //                 image: response.data.path,
-    //             };
-    //             console.log('ADD NEW COUPON', updatedCoupon);
-    //             dispatch(updateCoupon(updatedCoupon, coupon.id));
-    //             setEdit(false);
-    //             dispatch(getAllCoupon());
-    //             setCoupon(null);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Erreur lors du téléchargement de l\'image', error);
-    //         });
-    // }
-
     function addCoupon() {
-        uploadFile(image)
-            .then((response) => {
-                const updatedCoupon = {
-                    ...coupon,
-                    image: response.data.path,
-                };
-                console.log('ADD NEW COUPON', updatedCoupon);
-                dispatch(newCoupon(updatedCoupon));
-                setEdit(false);
-                dispatch(getAllCoupon());
-                setCoupon(null);
-            })
-            .catch((error) => {
-                console.error('Erreur lors du téléchargement de l\'image', error);
-            });
+        if (
+            !coupon.nom ||
+            !coupon.idcoupon ||
+            !coupon.pays ||
+            !coupon.typecoupon ||
+            !coupon.code ||
+            !coupon.url ||
+            !coupon.dateDebut ||
+            !coupon.dateFin ||
+            !coupon.description ||
+            image === null
+        ) {
+            alert('ERREUR : Tous les champs sont obligatoire!');
+            return;
+        }
+        else {
+            uploadFile(image)
+                .then((response) => {
+                    const updatedCoupon = {
+                        ...coupon,
+                        image: response.data.path,
+                    };
+                    console.log('ADD NEW COUPON with Image Upload', updatedCoupon);
+                    dispatch(newCoupon(updatedCoupon));
+                    setEdit(false);
+                    dispatch(getAllCoupon());
+                    setCoupon(null);
+                })
+                .catch((error) => {
+                    console.error('Erreur lors du téléchargement de l\'image', error);
+                });
+        }
     }
 
 

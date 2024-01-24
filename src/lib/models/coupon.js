@@ -56,7 +56,6 @@ const deleteCouponById = async (req, res) => {
 };
 
 const newCoupon = async (req, res) => {
-    console.log('TONGA ATY ILAY IZY  ', req.body);
     try {
         const result = req.body;
         const {
@@ -91,7 +90,7 @@ const newCoupon = async (req, res) => {
         };
         //let { err } = couponValidator(result);
         //console.log( err );
-        const couponData = await executeQuery({
+        let insertResult = await executeQuery({
             query:
                 "INSERT INTO coupons(idcoupon, typecoupon, nom, url, code, description, description2, pays, valid, actif, dateDebut, dateFin, image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
             values: [
@@ -110,11 +109,14 @@ const newCoupon = async (req, res) => {
                 coupon.image,
             ],
         });
-        //console.log('error there');
-        couponData = await executeQuery(
-            `select * from coupons where id =  ${couponData.insertId}`
+
+        const insertId = insertResult.insertId;
+
+        const selectedCouponData = await executeQuery(
+            `select * from coupons where id =  ${insertId}`
         );
-        res.status(201).json(couponData);
+        res.status(201).json(selectedCouponData);
+
     } catch (error) {
         //console.log('there is error newCoupon');
         //console.log(error);
@@ -124,7 +126,7 @@ const newCoupon = async (req, res) => {
 };
 
 const updateCoupon = async (req, res) => {
-    let id = req.query.id;
+    const id = req.query.id;
     const {
         idcoupon,
         typecoupon,
@@ -140,17 +142,38 @@ const updateCoupon = async (req, res) => {
         dateFin,
         image,
     } = req.body;
+
     console.log('REQ BODY FOR UPDATE', req.body);
+
     try {
-        let couponData = await executeQuery({
-            query: "select * from coupons where id = ?",
+        // Check if the coupon with the given ID exists
+        const existingCoupon = await executeQuery({
+            query: "SELECT * FROM coupons WHERE id = ?",
             values: [id],
         });
+
         console.log('REQ BODY FOR select before update', req.body);
-        if (couponData.length) {
-            couponData = await executeQuery({
-                query:
-                    "update coupons set idcoupon=?, typecoupon=?, nom=?, url=?, code=?, description=?, description2=?, pays=?, valid=?, actif=?, dateDebut=?, dateFin=?, image=? where id = ?",
+        if (existingCoupon.length > 0) {
+            // Update the coupon
+            await executeQuery({
+                query: `
+                    UPDATE coupons
+                    SET
+                        idcoupon=?,
+                        typecoupon=?,
+                        nom=?,
+                        url=?,
+                        code=?,
+                        description=?,
+                        description2=?,
+                        pays=?,
+                        valid=?,
+                        actif=?,
+                        dateDebut=?,
+                        dateFin=?,
+                        image=?
+                    WHERE id = ?
+                `,
                 values: [
                     idcoupon,
                     typecoupon,
@@ -168,20 +191,25 @@ const updateCoupon = async (req, res) => {
                     id,
                 ],
             });
-            console.log('INSERT ENY E', couponData);
-            couponData = await executeQuery({
-                query: `select * from coupons where id =  ?`,
+
+            console.log('UPDATE SUCCESSFUL');
+            const updatedCoupon = await executeQuery({
+                query: `SELECT * FROM coupons WHERE id = ?`,
                 values: [id],
             });
-            console.log('INSERT ENY E SELECT', couponData);
-            res.status(200).json(couponData);
+
+            console.log('UPDATED COUPON SELECT', updatedCoupon);
+
+            res.status(200).json(updatedCoupon);
         } else {
-            res.status(400).json(`Coupon not found on this id = ${id}`);
+            res.status(404).json({ error: `Coupon not found on this id = ${id}` });
         }
     } catch (error) {
-        res.status(500).json(error);
+        console.error('UPDATE ERROR:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 export {
     getAllCoupons,

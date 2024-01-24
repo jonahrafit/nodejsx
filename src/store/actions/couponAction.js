@@ -72,8 +72,6 @@ export const newCoupon = (newCoupon) => async (dispatch) => {
 };
 
 export const updateCoupon = (updated, id) => async (dispatch) => {
-    console.log('COUPON ACTION : UPDATE ', updated);
-    console.log('COUPON ACTION : ID ', id);
     try {
         await axios.put(`/api/coupon/coupon?id=${id}`, {
             ...updated,

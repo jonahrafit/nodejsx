@@ -1,68 +1,76 @@
 import axios from 'axios';
 import Link from 'next/link';
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/layout/Layout';
 import IdentityModal from '../components/modal/identity';
 import IdentityPendingModal from '../components/modal/identityPending';
 import IdentityRejectedModal from '../components/modal/identityRejected';
 import ChooseMission from '../components/modal/mission';
-import {getActiveMission} from '../store/actions/mission';
-import {createValidation} from '../store/actions/validation';
+import { getActiveMission } from '../store/actions/mission';
+import { createValidation } from '../store/actions/validation';
+import { generatePageNumbers, filterObjectsByName } from '../utils/pagination';
 
 function Blank() {
     const dispatch = useDispatch();
-
     const missions = useSelector((state) => state.mission);
     const [shows, setShows] = useState([]);
     const auth = useSelector((state) => state.auth);
     const [current, setCurrent] = useState(null);
     const [show, setShow] = useState(false);
-    const [missionFilter, setMissionFilter] = useState();
-    const [valuePage, setValuePage] = useState({start: 0, end: 12});
+    const [missionFilter, setMissionFilter] = useState([]);
+    const [valuePage, setValuePage] = useState({ start: 0, end: 12 });
+    const [text_search, setTextSearch] = useState('');
+
+    function handlechangeTextSearch(e) {
+        e.preventDefault();
+        setTextSearch(e.target.value);
+        if (e.target.value.length > 0) {
+            setMissionFilter(filterObjectsByName(missionFilter, e.target.value));
+        }
+        else {
+            pagination();
+        }
+    }
+
     useEffect(() => {
         return () => {
             dispatch(getActiveMission());
         };
-
     }, [dispatch]);
 
     useEffect(() => {
-        return () => {
-            if (missions.length > 16) {
-                const tmp = missions.map((m, i) => {
-                    if (i < 16) return m;
-                });
-
-                setShows(tmp);
-            }
+        if (missions) {
+            pagination();
         }
-    }, [missions]);
-
-    useEffect(async () => {
-        return () => {
-            if (missions) {
-                pagination();
-            }
-        }
-    }, [missions, valuePage]);
+    }, []);
 
     function pagination() {
         const x = missions?.filter((mission) => {
             return (
-                auth.user &&
-                (mission.pays === '' || mission.pays.includes(auth.user.pays)) &&
-                ((mission.premium === 1 && auth.user.premium === 1) ||
+                auth.user
+                && (mission.pays === '' || mission.pays.includes(auth.user.pays))
+                && ((mission.premium === 1 && auth.user.premium === 1) ||
                     mission.premium === 0)
             );
         });
-
+        console.log('X ', x);
         setMissionFilter(x);
     }
 
+    const pageSize = 12;
+    const totalPages = Math.ceil(missionFilter.length / pageSize);
+    const currentPage = valuePage.start / pageSize + 1;
+
     return (
         <>
-            <Layout subTitle="offres concours" pageTitle="Missions">
+            <Layout
+                subTitle="offres concours"
+                pageTitle="Missions"
+                show_search_bar={true}
+                text_search={text_search}
+                handlechangeTextSearch={handlechangeTextSearch}
+            >
                 <div
                     className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-2 py-2 shadow-md mb-3"
                     role="alert"
@@ -75,7 +83,7 @@ function Blank() {
                                 viewBox="0 0 20 20"
                             >
                                 <path
-                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
                             </svg>
                         </div>
                         <div>
@@ -89,8 +97,8 @@ function Blank() {
                             <p className="text-sm">
                                 Vous pouvez suivre vos participations en cliquant{' '}
                                 <span className="font-extrabold cursor-pointer text-black">
-                  <Link href="/offer">ici</Link>
-                </span>
+                                    <Link href="/offer">ici</Link>
+                                </span>
                                 .
                             </p>
                         </div>
@@ -152,7 +160,27 @@ function Blank() {
                                                     </div>
                                                 ))}
                                     </div>
-                                    <div className="mt-4">
+                                    <div className="mt-4 flex justify-center">
+                                        <ul className="flex space-x-2 items-center">
+                                            {generatePageNumbers(totalPages).map((pageNumber) => (
+                                                <li key={pageNumber}>
+                                                    <button
+                                                        onClick={() => {
+                                                            setValuePage({
+                                                                start: (pageNumber - 1) * pageSize,
+                                                                end: pageNumber * pageSize,
+                                                            });
+                                                        }}
+                                                        className={`text-white text-sm font-extrabold rounded btn ${currentPage === pageNumber ? 'btn-primary' : 'btn-secondary'
+                                                            }`}
+                                                    >
+                                                        {pageNumber}
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    {/* <div className="mt-4">
                                         <button
                                             onClick={() => {
                                                 setValuePage({
@@ -180,7 +208,7 @@ function Blank() {
                                         >
                                             Suivant
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

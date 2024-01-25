@@ -31,7 +31,10 @@ function Layout({
   subTitle,
   show_button_order,
   handlechangeOrder,
-  orderOfData
+  orderOfData,
+  show_search_bar,
+  text_search,
+  handlechangeTextSearch
 }) {
   const [isChat, setIsChat] = useState(false);
   const [isUrl, setIsUrl] = useState(false);
@@ -234,6 +237,9 @@ function Layout({
               show_button_order={show_button_order}
               handlechangeOrder={handlechangeOrder}
               orderOfData={orderOfData}
+              show_search_bar={show_search_bar}
+              text_search={text_search}
+              handlechangeTextSearch={handlechangeTextSearch}
             // subTitle={subTitle}
             />
             {children}

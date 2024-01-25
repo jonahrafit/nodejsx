@@ -127,7 +127,7 @@ export default function CouponAdmin() {
                                                                 </td>
                                                                 <td className="py-3 px-6 text-center">
                                                                     <div className="flex text-lg items-center justify-center">
-                                                                        {c.actif ? (
+                                                                        {c.actif === 1 ? (
                                                                             <button
                                                                                 onClick={() => {
                                                                                     updateCouponActif(c.id, 0);

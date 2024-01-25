@@ -45,6 +45,12 @@ function Blank() {
         }
     }, []);
 
+    useEffect(() => {
+        if (missions) {
+            pagination();
+        }
+    }, [missions]);
+
     function pagination() {
         const x = missions?.filter((mission) => {
             return (
@@ -58,6 +64,7 @@ function Blank() {
         setMissionFilter(x);
     }
 
+    console.log('MISSION ', missions);
     const pageSize = 12;
     const totalPages = Math.ceil(missionFilter.length / pageSize);
     const currentPage = valuePage.start / pageSize + 1;
@@ -105,6 +112,7 @@ function Blank() {
                     </div>
                 </div>
                 <div className="container px-3 mx-auto min-h-[54vh]">
+                    
                     <div className="col-lg-12  ">
                         <div className="overflow-x-auto">
                             <div className="min-w-screen flex items-center justify-center font-sans">

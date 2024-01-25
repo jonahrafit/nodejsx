@@ -37,20 +37,16 @@ function Blank() {
 
     return (
         <>
-            <Layout subTitle="Coupon" pageTitle="Choisir votre coupon">
+            <Layout
+                subTitle="Coupon"
+                pageTitle="Choisir votre coupon"
+                show_search_bar={true}
+                text_search={search}
+                handlechangeTextSearch={handleChangeValueSearch}
+            >
                 <div className="gift_card">
                     <div className="container">
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 my-2">
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    placeholder="Recherche..."
-                                    name="search"
-                                    value={search}
-                                    onChange={handleChangeValueSearch}
-                                    className="py-2 px-4 rounded-full bg-gray-200 focus:outline-none focus:ring focus:border-indigo-300"
-                                />
-                            </div>
                             <p>On trouve ({filteredCoupon.length}) résultat(s)</p>
                         </div>
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5">
